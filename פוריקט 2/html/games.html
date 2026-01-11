@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man - בחירת משחק</title>
+    <link rel="stylesheet" href="../css/styleMain.css">
+    <link rel="stylesheet" href="../css/styleGames.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo-small">
+            <div class="pacman-icon-small"></div>
+            <span>PAC-MAN</span>
+        </div>
+
+        <button id="logout-btn" title="התנתק ויציאה">
+            &#10140; </button>
+    </header>
+
+    <div class="container game-selection-container">
+        <h1>שלום <span id="user-name-display" class="highlight-text">שחקן</span>!</h1>
+        <h2>בחר את המשחק שלך:</h2>
+
+        <div class="games-grid">
+            
+            <a href="game-board.html" class="game-card">
+                <div class="card-image pacman-bg"></div>
+                <h3>pacman</h3>
+                <p>הפרויקט הסופי</p>
+            </a>
+
+            <a href="https://tetris.com/play-tetris" target="_blank" class="game-card">
+                <div class="card-image tetris-bg"></div>
+                <h3>Tetris</h3>
+                <p>משחק חיצוני</p>
+            </a>
+
+            <a href="https://www.google.com/logos/2010/pacman10-i.html" target="_blank" class="game-card">
+                <div class="card-image space-bg"></div>
+                <h3>Google Pacman</h3>
+                <p>משחק חיצוני</p>
+            </a>
+
+        </div>
+    </div>
+
+    <script src="../javaScript/games.js"></script>
+</body>
+</html>
