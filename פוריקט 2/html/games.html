@@ -9,6 +9,7 @@
 </head>
 <body>
 
+
     <header class="main-header">
         <div class="logo-small">
             <div class="pacman-icon-small"></div>
@@ -21,31 +22,30 @@
 
     <div class="container game-selection-container">
         <h1>שלום <span id="user-name-display" class="highlight-text">שחקן</span>!</h1>
-        <h2>בחר את המשחק שלך:</h2>
+        <h2>במה נשחק?</h2>
 
-        <div class="games-grid">
-            
-            <a href="/פוריקט 2/html/pacmanGame.html" class="game-card">
-                <div class="card-image pacman-bg"></div>
-                <h3>Pacman</h3>
-                <p>הפרויקט הסופי</p>
-            </a>
+<div class="games-grid">
+    
+    <a href="https://playtictactoe.org/" target="_blank" class="game-card">
+        <div class="card-image tetris-bg"></div>
+        <h3>Tic-Tac-Toe</h3>
+    </a>
 
-            <a href="https://tetris.com/play-tetris" target="_blank" class="game-card">
-                <div class="card-image tetris-bg"></div>
-                <h3>Tetris</h3>
-                <p>משחק חיצוני</p>
-            </a>
+    <a href="pacmanGame.html" class="game-card" style="border-color: #FFFF00; transform: scale(1.1);">
+        <div class="card-image pacman-bg"></div>
+        <h3 class="highlight-text">PAC-MAN</h3>
+        <p>!Our recommendation</p>
+    </a>
 
-            <a href="https://www.google.com/logos/2010/pacman10-i.html" target="_blank" class="game-card">
-                <div class="card-image space-bg"></div>
-                <h3>Google Pacman</h3>
-                <p>משחק חיצוני</p>
-            </a>
+    <a href="https://www.google.com/search?q=play+snake" target="_blank" class="game-card">
+        <div class="card-image space-bg"></div>
+        <h3>Snake</h3>
+    </a>
 
-        </div>
-    </div>
+  </div>
 
     <script src="../javaScript/games.js"></script>
+        <script src="../javaScript/utils.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man - התחברות</title>
+    <link rel="stylesheet" href="../css/styleMain.css">
+</head>
+<body>
+
+        <header class="main-header">
+        <div class="logo-small">
+            <div class="pacman-icon-small"></div>
+            <span>PAC-MAN</span>
+        </div>
+
+        <button id="logout-btn" title="התנתק ויציאה">
+            &#10140; </button>
+        </header>
+
+    <div class="container">
+        <div id="message-box" class="hidden"></div>
+
+        <div id="login-section">
+            <h2>Ready Player One?</h2> <form id="login-form">
+                <input type="text" id="login-username" placeholder="שם שחקן" required>
+                <input type="password" id="login-password" placeholder="סיסמא" required>
+                <button type="submit">INSERT COIN</button>
+            </form>
+            <p>שחקן חדש? <a href="#" id="show-register">הירשם למשחק</a></p>
+        </div>
+
+        <div id="register-section" class="hidden">
+            <h2>New Player</h2>
+            <form id="register-form">
+                <input type="text" id="reg-username" placeholder="בחר שם שחקן" required>
+                <input type="password" id="reg-password" placeholder="בחר סיסמא" required>
+                <button type="submit">START GAME</button>
+            </form>
+            <p>כבר רשום? <a href="#" id="show-login">חזור לכניסה</a></p>
+        </div>
+    </div>
+
+    <script src="../javaScript/login.js"></script>
+    <script src="../javaScript/utils.js"></script>
+</body>
+</html>
