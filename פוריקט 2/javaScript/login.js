@@ -13,6 +13,7 @@ function showMessage(text, type) {
         messageBox.classList.add('hidden');
     }, 1000);
 }
+
 //פונקצית שליפת משתמשים
 function getUsers() {
     const usersJSON = localStorage.getItem('pacmanUsers'); 
