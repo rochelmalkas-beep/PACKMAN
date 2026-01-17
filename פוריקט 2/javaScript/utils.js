@@ -45,8 +45,10 @@ if (!window.location.pathname.endsWith('main.html')) {
 
 // 4. Logout Handler
 document.addEventListener('DOMContentLoaded', () => {
+HEAD
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', logout);
     }
+
 });
