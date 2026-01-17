@@ -19,7 +19,7 @@ const gameBoard = [
     1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
     1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,1,
     1,1,1,0,0,0,0,0,0,0,0,1,0,1,1,1,1,1,0,0,1,1,0,1,
-    1,0,0,0,0,0,0,1,1,1,1,3,3,3,1,0,0,0,0,0,1,1,1,1,
+    1,0,0,0,0,0,0,1,1,1,3,3,3,3,1,0,0,0,0,0,1,1,1,1,
     1,0,0,0,0,0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,0,1,1,
     1,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
     0,0,0,1,0,0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,1,0,0,1,
@@ -50,6 +50,25 @@ function createBoard(){
 }
 createBoard();
 
+class Ghost {
+    constructor(className, startIndex, speed) {
+        this.className = className; // השם (blinky, pinky...)
+        this.startIndex = startIndex; // איפה היא מתחילה
+        this.speed = speed; // מהירות
+        this.currentIndex = startIndex; // איפה היא כרגע
+        this.timerId = NaN; // השעון הפרטי שלה
+    }
+}const ghosts = [
+    new Ghost('blinky', 227, 250), // אדומה
+    new Ghost('pinky', 228, 400),  // ורודה
+    new Ghost('inky', 229, 300),   // כחולה
+    new Ghost('clyde', 230, 500)   // כתומה
+];// ציור ראשוני של הרוחות
+ghosts.forEach(ghost => {
+    squares[ghost.currentIndex].classList.add(ghost.className);
+    squares[ghost.currentIndex].classList.add('ghost');
+});
+
 document.addEventListener('keydown', function(event) {
     
     if (!gameStarted && event.code === 'Space') {
@@ -58,7 +77,7 @@ document.addEventListener('keydown', function(event) {
         startMessage.style.display = 'none';
       
         currentDirection = 'ArrowRight';
-        timerId = setInterval(movePacman, 300);
+        timerId = setInterval(movePacman, 200);
     }
     
     if(gameStarted && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.code))
@@ -107,7 +126,7 @@ function movePacman(){
     squares[pacmanCurrentIndex].classList.remove('pacman');
     pacmanCurrentIndex=nextIndex;
     squares[pacmanCurrentIndex].classList.add('pacman');
-    squares[pacmanCurrentIndex].style.transform = getRotation(e.code);
+    squares[pacmanCurrentIndex].style.transform = getRotation(currentDirection);
     pacDotEaten();
 }
 

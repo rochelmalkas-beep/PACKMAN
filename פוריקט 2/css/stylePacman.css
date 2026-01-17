@@ -107,26 +107,37 @@ body {
 }
 
 /* --- הכנת מחלקות לרוחות (נשתמש בהן בהמשך ב-JS) --- */
+/* --- הכנת מחלקות לרוחות --- */
+
+/* הגדרות כלליות לכל רוח */
 .ghost {
-    background-size: cover;
     background-repeat: no-repeat;
-    background-color: transparent;
+    background-position: center;
+    background-size: contain; 
+    border-radius: 0; 
+    z-index: 1;
 }
 
-.ghost-red {
+/* הגדרת תמונה לכל רוח בנפרד - עם הנתיב המתוקן! */
+
+/* בלינקי - האדום */
+.blinky {
     background-image: url('../images/redGhost.png');
 }
 
-.ghost-pink {
+/* פינקי - הורוד */
+.pinky {
     background-image: url('../images/pinkGhost.png');
 }
 
-.ghost-blue {
+/* אינקי - הכחול */
+.inky {
     background-image: url('../images/blueGhost.png');
 }
 
-.ghost-scared {
-    background-image: url('../images/scaredGhost.png');
+/* קלייד - הכתום */
+.clyde {
+    background-image: url('../images/orangeGhost.png');
 }
 /* --- כותרת תחתונה --- */
 .game-footer {
@@ -136,7 +147,12 @@ body {
     font-family: monospace;
     animation: blink 1s infinite; /* אפקט הבהוב */
 }
-
+.pac-dot {
+  background-color: white;
+  border-radius: 50%; /* הופך את הריבוע לעיגול */
+  border: 7px solid black; /* טריק! גבול שחור עבה מקטין את הלבן */
+  box-sizing: border-box; /* שומר שהגודל הכולל לא ישתנה */
+}
 /* אנימציית הבהוב לטקסט */
 @keyframes blink {
     0% { opacity: 1; }
