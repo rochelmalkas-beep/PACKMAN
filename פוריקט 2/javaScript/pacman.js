@@ -3,6 +3,9 @@ const height = 19; //גובה
 let squares = []; // מחזיק את הריבועים
 let pacmanCurrentIndex = 0; //מיקום נוחכי
 let score = 0; //ניקוד
+let timerId = NaN; //זמן
+let currentDirection = null; //כיוון נוכחי
+const scoreDisplay = document.getElementById('score-val'); //תצוגת ניקוד
 let gameStarted = false; //האם המשחק התחיל
 const grid = document.querySelector('#game-board');
 const startMessage = document.getElementById('start-message');
@@ -24,7 +27,7 @@ const gameBoard = [
     1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,1,1,
     1,0,0,0,0,1,1,0,1,0,1,0,0,1,1,1,1,1,0,1,0,0,0,1,
     1,0,0,1,1,1,0,0,1,0,1,0,0,1,0,0,0,1,0,1,1,1,0,1,
-    1,0,1,1,0,0,0,0,1,0,1,0,2,1,0,0,0,1,1,1,0,0,0,1, 
+    1,0,1,1,0,0,0,0,1,0,0,0,2,0,0,0,0,1,1,1,0,0,0,1, 
     1,1,0,0,0,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1 
 ];
 pacmanCurrentIndex = gameBoard.indexOf(2)
@@ -52,18 +55,26 @@ document.addEventListener('keydown', function(event) {
     if (!gameStarted && event.code === 'Space') {
         
         gameStarted = true;
-        
         startMessage.style.display = 'none';
-        // startGame(); <-- פונקציה שנוסיף בעתיד
+      
+        currentDirection = 'ArrowRight';
+        timerId = setInterval(movePacman, 300);
     }
-});
+    
+    if(gameStarted && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.code))
+    {
+        event.preventDefault();
+       currentDirection = event.code;
+    }
 
-function movePacman(e){
-    if(!gameStarted)
+    });
+
+function movePacman(){
+    if(!gameStarted || !currentDirection)
         return;
     let nextIndex = pacmanCurrentIndex;
     let Vjump = (height-1)*width;
-    switch(e.code){
+    switch(currentDirection){
         case 'ArrowLeft':
             if (pacmanCurrentIndex % width === 0)
                 nextIndex = pacmanCurrentIndex+(width-1);
@@ -97,9 +108,10 @@ function movePacman(e){
     pacmanCurrentIndex=nextIndex;
     squares[pacmanCurrentIndex].classList.add('pacman');
     squares[pacmanCurrentIndex].style.transform = getRotation(e.code);
+    pacDotEaten();
 }
 
-function pecDotEaten(){
+function pacDotEaten(){
     if (squares[pacmanCurrentIndex].classList.contains('pac-dot')){
         score++;
         scoreDisplay.innerHTML = score; 
