@@ -1,10 +1,11 @@
 const width = 24; // רוחב הלוח
-let squares = [];
-let pacmanCurrentIndex = 0;
-pacmanCurrentIndex = gameBoard.indexOf(2)
+const height = 19; //גובה
+let squares = []; // מחזיק את הריבועים
+let pacmanCurrentIndex = 0; //מיקום נוחכי
+let score = 0; //ניקוד
+let gameStarted = false; //האם המשחק התחיל
 const grid = document.querySelector('#game-board');
 const startMessage = document.getElementById('start-message');
-let gameStarted = false; 
 const gameBoard = [
     1,1,1,1,1,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,
     1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,1,1,0,0,0,0,0,0,1,
@@ -26,6 +27,7 @@ const gameBoard = [
     1,0,1,1,0,0,0,0,1,0,1,0,2,1,0,0,0,1,1,1,0,0,0,1, 
     1,1,0,0,0,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1 
 ];
+pacmanCurrentIndex = gameBoard.indexOf(2)
 function createBoard(){
     for(let i=0;i<gameBoard.length;i++){
         const square=document.createElement("div");
@@ -55,3 +57,60 @@ document.addEventListener('keydown', function(event) {
         // startGame(); <-- פונקציה שנוסיף בעתיד
     }
 });
+
+function movePacman(e){
+    if(!gameStarted)
+        return;
+    let nextIndex = pacmanCurrentIndex;
+    let Vjump = (height-1)*width;
+    switch(e.code){
+        case 'ArrowLeft':
+            if (pacmanCurrentIndex % width === 0)
+                nextIndex = pacmanCurrentIndex+(width-1);
+            else nextIndex = pacmanCurrentIndex-1;
+            break;
+        case 'ArrowRight':
+             if (pacmanCurrentIndex % width === width - 1)
+                nextIndex = pacmanCurrentIndex-(width-1);
+            else nextIndex = pacmanCurrentIndex + 1;
+            break;
+        case 'ArrowUp':
+            if (pacmanCurrentIndex - width < 0) {
+                nextIndex = pacmanCurrentIndex + Vjump; 
+            } else {
+                nextIndex = pacmanCurrentIndex - width;
+            }
+            break;
+
+        case 'ArrowDown':
+            if (pacmanCurrentIndex + width >= width * 19) {
+                nextIndex = pacmanCurrentIndex - Vjump; 
+            } else {
+                nextIndex = pacmanCurrentIndex + width;
+            }
+            break;
+    
+        }
+    if (squares[nextIndex].classList.contains('wall'))
+        return;
+    squares[pacmanCurrentIndex].classList.remove('pacman');
+    pacmanCurrentIndex=nextIndex;
+    squares[pacmanCurrentIndex].classList.add('pacman');
+    squares[pacmanCurrentIndex].style.transform = getRotation(e.code);
+}
+
+function pecDotEaten(){
+    if (squares[pacmanCurrentIndex].classList.contains('pac-dot')){
+        score++;
+        scoreDisplay.innerHTML = score; 
+        squares[pacmanCurrentIndex].classList.remove('pac-dot');
+    }
+}
+
+function getRotation (direction){
+    if (direction === 'ArrowRight') return 'rotate(0deg)';
+    if (direction === 'ArrowLeft') return 'scaleX(-1)'; 
+    if (direction === 'ArrowUp') return 'rotate(270deg)';
+    if (direction === 'ArrowDown') return 'rotate(90deg)';
+    return 'rotate(0deg)';
+}
