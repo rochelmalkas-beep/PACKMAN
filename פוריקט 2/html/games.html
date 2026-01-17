@@ -6,9 +6,9 @@
     <title>Pac-Man - בחירת משחק</title>
     <link rel="stylesheet" href="../css/styleMain.css">
     <link rel="stylesheet" href="../css/styleGames.css">
+
 </head>
 <body>
-
 
     <header class="main-header">
         <div class="logo-small">
@@ -17,35 +17,42 @@
         </div>
 
         <button id="logout-btn" title="התנתק ויציאה">
-            &#10140; </button>
+            &#10140; 
+        </button>
     </header>
 
     <div class="container game-selection-container">
         <h1>שלום <span id="user-name-display" class="highlight-text">שחקן</span>!</h1>
         <h2>במה נשחק?</h2>
 
-<div class="games-grid">
-    
-    <a href="https://playtictactoe.org/" target="_blank" class="game-card">
-        <div class="card-image tetris-bg"></div>
-        <h3>Tic-Tac-Toe</h3>
-    </a>
+        <div class="games-grid">
+            
+            <a href="https://doodlejump24.io/" target="_blank" class="game-card">
+                <video class="card-video" autoplay loop muted playsinline>
+                    <source src="../media/doodleJump.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <h3>Doodle Jump</h3> 
+            </a>
 
-    <a href="pacmanGame.html" class="game-card" style="border-color: #FFFF00; transform: scale(1.1);">
-        <div class="card-image pacman-bg"></div>
-        <h3 class="highlight-text">PAC-MAN</h3>
-        <p>!Our recommendation</p>
-    </a>
+            <a href="pacmanGame.html" class="game-card" style="border-color: #FFFF00; transform: scale(1.1);">
+               <video class="card-video" autoplay loop muted playsinline>
+                    <source src="../media/pacman.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <h3>PAC-MAN</h3> 
+            </a>
 
-    <a href="https://www.google.com/search?q=play+snake" target="_blank" class="game-card">
-        <div class="card-image space-bg"></div>
-        <h3>Snake</h3>
-    </a>
+            <a href="https://www.google.com/search?q=play+snake" target="_blank" class="game-card">
+                <div class="card-image space-bg"></div>
+                <h3>Snake</h3>
+            </a>
 
-  </div>
+        </div>
+    </div>
 
     <script src="../javaScript/games.js"></script>
-        <script src="../javaScript/utils.js"></script>
+    <script src="../javaScript/utils.js"></script>
 
 </body>
 </html>
