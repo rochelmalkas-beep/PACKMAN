@@ -149,13 +149,61 @@ body {
 }
 .pac-dot {
   background-color: white;
-  border-radius: 50%; /* הופך את הריבוע לעיגול */
-  border: 7px solid black; /* טריק! גבול שחור עבה מקטין את הלבן */
-  box-sizing: border-box; /* שומר שהגודל הכולל לא ישתנה */
+  border-radius: 50%;
+  
+  /* שינוי גודל: הגדלנו את המסגרת מ-7 ל-10 */
+  /* ככל שהמספר הזה יותר גדול -> הנקודה הלבנה תהיה יותר קטנה */
+  border: 11px solid black; 
+  
+  box-sizing: border-box;
+}
+.ghost.pac-dot {
+    border: none; /* מבטל את המסגרת השחורה של האוכל */
+    background-color: transparent; /* מבטל את הרקע הלבן של האוכל */
+    border-radius: 0; /* מבטל את העיגול של האוכל */
+    /* מוודא שהרוח תופסת את כל המקום ורואים אותה טוב */
+    background-size: contain; 
 }
 /* אנימציית הבהוב לטקסט */
 @keyframes blink {
     0% { opacity: 1; }
     50% { opacity: 0; }
     100% { opacity: 1; }
+}
+.game-over-modal {
+    display: none; /* מוסתר כברירת מחדל */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* ממקם בדיוק באמצע */
+    
+    background-color: rgba(0, 0, 0, 0.9); /* רקע שחור חצי שקוף */
+    border: 4px solid #ff0000; /* מסגרת אדומה */
+    padding: 20px 40px;
+    text-align: center;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    z-index: 100; /* שיהיה מעל הכל */
+    box-shadow: 0 0 20px red; /* זוהר אדום */
+}
+
+.game-over-modal h1 {
+    font-size: 40px;
+    margin: 0 0 20px 0;
+    color: red;
+}
+
+.game-over-modal button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 15px;
+}
+
+.game-over-modal button:hover {
+    background-color: darkred;
 }
