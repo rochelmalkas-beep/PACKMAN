@@ -1,8 +1,11 @@
 
+
+/* אזור המשחקים */
 .game-selection-container {
     width: 80%;
     max-width: 800px;
-    margin-top: 80px;
+    margin-top: 80px; /* רווח מההדר */
+}
 
 .highlight-text {
     color: #FFFF00;
@@ -17,6 +20,7 @@
     flex-wrap: wrap;
 }
 
+/* כרטיס משחק */
 .game-card {
     background-color: #222;
     border: 2px solid #1919A6;
@@ -32,7 +36,7 @@
 }
 
 .game-card:hover {
-    transform: translateY(-10px); 
+    transform: translateY(-10px); /* קופץ למעלה במעבר עכבר */
     box-shadow: 0 0 15px #FFFF00;
     border-color: #FFFF00;
 }
@@ -43,8 +47,11 @@
     background-color: #000;
     margin-bottom: 10px;
     border-radius: 5px;
+    /* כאן אפשר לשים תמונות אמיתיות בהמשך */
 }
 
+/* דוגמאות לרקעים שונים לקוביות אם אין תמונות */
 .pacman-bg { background: linear-gradient(45deg, #1919A6, #000); }
 .tetris-bg { background: linear-gradient(45deg, #cc0000, #000); }
+
 .space-bg { background: linear-gradient(45deg, #00cc00, #000); }
