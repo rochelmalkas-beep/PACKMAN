@@ -7,33 +7,34 @@
         <link rel="stylesheet" href="../css/stylePacman.css">
 
 </head>
-<body>
-   <header class="main-header">
-        <div class="logo-small">
-            <div class="pacman-icon-small"></div>
-            <span>PAC-MAN</span>
-        </div>
-
-        <button id="logout-btn" title="התנתק ויציאה">
-            &#10140; </button>
-        </header>
-    <div class="container">
-        <div class="game-header">
-            <div class="score">SCORE: <span id="score-val">0</span></div>
-            <div class="lives">LIVES: <span id="lives-val">3</span></div>
-        </div>
-
-        <div id="game-board"></div>
-
-        <div class="game-footer" id="start-message">
-            Press SPACE to Start
-        </div>
-    <div id="game-over-modal" class="game-over-modal">
-    <h1>GAME OVER</h1>
-    <p>YOUR SCORE: <span id="final-score">0</span></p>
-    <button onclick="location.reload()">PLAY AGAIN</button>
-        </div>
+<body data-page-type="private">
+<header class="main-header">
+    <div class="logo-wrapper">
+        <img src="../images/pacman_logo.png" alt="Pac-Man Logo">
     </div>
+
+    <button id="logout-btn" title="התנתק ויציאה">
+        &#10140;
+    </button>
+</header>
+<div class="container">
+    <div class="game-header">
+        <div class="lives">LIVES: <span id="lives-val">3</span></div>
+        <div class="score">SCORE: <span id="score-val">0</span></div>
+    </div>
+
+    <div id="game-board"></div>
+
+    <div class="game-footer" id="start-message">
+        READY! PRESS SPACE TO START
+    </div>
+    
+    <div id="game-over-modal" class="game-over-modal">
+        <h1>GAME OVER</h1>
+        <p>YOUR SCORE: <span id="final-score">0</span></p>
+        <button onclick="location.reload()">PLAY AGAIN</button>
+    </div>
+</div>
         <script src="../javaScript/pacman.js"></script>
             <script src="../javaScript/utils.js"></script>
 

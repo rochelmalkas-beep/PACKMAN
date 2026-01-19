@@ -1,57 +1,150 @@
-
-
-/* אזור המשחקים */
-.game-selection-container {
-    width: 80%;
-    max-width: 800px;
-    margin-top: 80px; /* רווח מההדר */
+@font-face {
+    font-family: 'pacFont'; /* This is the name you will use in your CSS */
+    src: url('../fonts/pacFont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
+/* --- 1. Main Container (Compact Version) --- */
+.game-selection-container {
+    /* Apply it to your game header or body */
+    font-family: 'pacFont', 'Courier New', monospace;
+    width: 85%; /* Slightly narrower */
+    max-width: 900px;
+    margin-top: 100px; /* Reduced gap from header */
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px; /* Less padding */
+    border-radius: 20px;
+    border: 4px solid #F6C03D;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* PREVENTS PAGE SCROLLING */
+    overflow: hidden; 
+}
+h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight:lighter;
+}
 .highlight-text {
-    color: #FFFF00;
-    text-shadow: 2px 2px #1919A6;
+    color: #1919A6;
+    font-weight: 800;
+}
+
+/* --- 2. Carousel Wrapper --- */
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    margin-top: 10px; /* Tighter layout */
+}
+
+.carousel-viewport {
+    width: 100%; 
+    height: 380px; /* Reduced height to fit better */
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    perspective: 1000px; 
 }
 
 .games-grid {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
-    flex-wrap: wrap;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center; 
+    margin: 0; 
+    padding: 0;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Faster slide */
+    will-change: transform;
 }
 
-/* כרטיס משחק */
+/* --- 3. Card Design (Smaller & Cleaner) --- */
 .game-card {
-    background-color: #222;
-    border: 2px solid #1919A6;
-    border-radius: 10px;
-    width: 200px;
-    text-decoration: none;
-    color: white;
+    /* SCALED DOWN SIZES */
+    width: 220px;  /* Previously 260px */
+    height: 280px; /* Previously 320px */
+    margin: 0 15px; /* Smaller gaps */
+    
+    flex-shrink: 0; 
     padding: 10px;
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+    
+    background-color: #000;
+    border: 3px solid #1919A6;
+    border-radius: 12px;
+    color: white;
+    text-decoration: none;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
+    
+    /* Default State (Side Cards) */
+    opacity: 0.6; /* Little more visible */
+    transform: scale(0.9); /* Default size */
+    filter: grayscale(100%);
+    transition: all 0.4s ease;
+    cursor: pointer;
 }
 
+/* --- 4. The Active Middle Card (THE ONLY ONE THAT GROWS) --- */
+.game-card.active {
+    opacity: 1 !important;
+    filter: grayscale(0%) !important;
+    transform: scale(1.15); /* Grows 15% larger */
+    z-index: 100;
+    border-color: #F6C03D;
+    box-shadow: 0 0 30px rgba(246, 192, 61, 0.6);
+}
+
+/* --- 5. Hover Effects (Side Cards) --- */
+/* FIX: Side cards do NOT grow size, they just get color */
 .game-card:hover {
-    transform: translateY(-10px); /* קופץ למעלה במעבר עכבר */
-    box-shadow: 0 0 15px #FFFF00;
-    border-color: #FFFF00;
+    border-color: #F6C03D;
+    opacity: 1 !important;
+    filter: grayscale(0%) !important;
+    /* Removed 'transform: scale(...)' so they stay small */
 }
 
-.card-image {
+/* Ensure Active card stays big on hover */
+.game-card.active:hover {
+    transform: scale(1.15); 
+}
+
+.card-video {
     width: 100%;
-    height: 120px;
-    background-color: #000;
+    height: 120px; /* Adjusted for smaller card */
+    object-fit: cover;
+    border-radius: 6px;
     margin-bottom: 10px;
-    border-radius: 5px;
-    /* כאן אפשר לשים תמונות אמיתיות בהמשך */
+    background: black;
+    pointer-events: none;
 }
 
-/* דוגמאות לרקעים שונים לקוביות אם אין תמונות */
-.pacman-bg { background: linear-gradient(45deg, #1919A6, #000); }
-.tetris-bg { background: linear-gradient(45deg, #cc0000, #000); }
+/* --- 6. Buttons --- */
+.nav-btn {
+    background-color: #F6C03D;
+    border: none;
+    font-size: 20px;
+    width: 40px; /* Smaller buttons */
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 500;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+.nav-btn:hover { transform: scale(1.1); }
 
-.space-bg { background: linear-gradient(45deg, #00cc00, #000); }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,51 +9,55 @@
     <link rel="stylesheet" href="../css/styleGames.css">
 
 </head>
-<body>
+
+<body data-page-type="private">
 
     <header class="main-header">
-        <div class="logo-small">
-            <div class="pacman-icon-small"></div>
-            <span>PAC-MAN</span>
+        <div class="logo-wrapper">
+            <img src="../images/pacman_logo.png" alt="Pac-Man Logo">
         </div>
 
         <button id="logout-btn" title="התנתק ויציאה">
-            &#10140; 
+            &#10140;
         </button>
     </header>
+<div class="container game-selection-container">
+    <h1>Wellcome<span id="user-name-display" class="highlight-text">שחקן</span>!</h1>
+    <h2>What shall we play?</h2>
 
-    <div class="container game-selection-container">
-        <h1>שלום <span id="user-name-display" class="highlight-text">שחקן</span>!</h1>
-        <h2>במה נשחק?</h2>
+    <div class="carousel-container">
+        <button id="prevBtn" class="nav-btn">&#10094;</button>
+        
+        <div class="carousel-viewport">
+            <div class="games-grid" id="gamesGrid">
+                <a href="../html/construction.html" class="game-card">
+                    <video class="card-video" loop muted playsinline>
+                        <source src="../media/pacman1.mp4" type="video/mp4">
+                    </video>
+                    <h3>Pacman Maze</h3>
+                </a>
 
-        <div class="games-grid">
-            
-            <a href="https://doodlejump24.io/" target="_blank" class="game-card">
-                <video class="card-video" autoplay loop muted playsinline>
-                    <source src="../media/doodleJump.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <h3>Doodle Jump</h3> 
-            </a>
+                <a href="../html/pacmanGame.html" class="game-card">
+                    <video class="card-video" loop muted playsinline>
+                        <source src="../media/pacman.mp4" type="video/mp4">
+                    </video>
+                    <h3>PAC-MAN</h3>
+                </a>
 
-            <a href="pacmanGame.html" class="game-card" style="border-color: #FFFF00; transform: scale(1.1);">
-               <video class="card-video" autoplay loop muted playsinline>
-                    <source src="../media/pacman.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <h3>PAC-MAN</h3> 
-            </a>
-
-            <a href="https://www.google.com/search?q=play+snake" target="_blank" class="game-card">
-                <div class="card-image space-bg"></div>
-                <h3>Snake</h3>
-            </a>
-
+                <a href="../html/construction.html" class="game-card">
+                    <video class="card-video" loop muted playsinline>
+                        <source src="../media/pacman3.mp4" type="video/mp4">
+                    </video>
+                    <h3>COMING SOON</h3>
+                </a>
+            </div>
         </div>
+
+        <button id="nextBtn" class="nav-btn">&#10095;</button>
     </div>
-
-    <script src="../javaScript/games.js"></script>
+</div>
     <script src="../javaScript/utils.js"></script>
-
+    <script src="../javaScript/games.js"></script>
 </body>
+
 </html>
