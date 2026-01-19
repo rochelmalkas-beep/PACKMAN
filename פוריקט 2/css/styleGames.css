@@ -60,3 +60,33 @@
     font-size: 1.2rem;
     letter-spacing: 1px;
 }
+.carousel-viewport {
+    overflow: hidden;
+    width: 100%;
+    perspective: 1000px; /* Gives a 3D feel to the scaling */
+    padding: 40px 0;    /* Extra padding so the scaled card doesn't get cut off */
+}
+
+.games-grid {
+    display: flex;
+    align-items: center;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Smooth pro movement */
+}
+
+.game-card {
+    min-width: 220px;
+    opacity: 0.5;        /* Side cards are slightly faded */
+    transform: scale(0.8); /* Side cards are smaller */
+    transition: all 0.5s ease;
+    filter: blur(1px);   /* Slight blur for side cards */
+}
+
+/* The magic class we will add via JavaScript */
+.game-card.active {
+    opacity: 1;
+    transform: scale(1.2); /* Middle card is 20% bigger */
+    filter: blur(0);
+    z-index: 10;
+    border-color: #F6C03D;
+    box-shadow: 0 0 30px rgba(246, 192, 61, 0.5);
+}
