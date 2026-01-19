@@ -1,5 +1,14 @@
+@font-face {
+    font-family: 'pacFont'; /* This is the name you will use in your CSS */
+    src: url('../fonts/pacFont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* --- 1. Main Container (Compact Version) --- */
 .game-selection-container {
+    /* Apply it to your game header or body */
+    font-family: 'pacFont', 'Courier New', monospace;
     width: 85%; /* Slightly narrower */
     max-width: 900px;
     margin-top: 100px; /* Reduced gap from header */
@@ -15,7 +24,12 @@
     /* PREVENTS PAGE SCROLLING */
     overflow: hidden; 
 }
-
+h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight:lighter;
+}
 .highlight-text {
     color: #1919A6;
     font-weight: 800;
@@ -133,3 +147,4 @@
     transition: transform 0.2s;
 }
 .nav-btn:hover { transform: scale(1.1); }
+

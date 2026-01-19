@@ -168,7 +168,7 @@ function moveGhost(ghost) {
 
     // בדיקה: האם אפשר להמשיך בכיוון הנוכחי?
     // התנאי: אין קיר ואין רוח אחרת במשבצת הבאה
-    const isBlocked = squares[ghost.currentIndex + direction].classList.contains('wall') ||
+    const isBlocked = !squares[nextIndex] || squares[ghost.currentIndex + direction].classList.contains('wall') ||
                       squares[ghost.currentIndex + direction].classList.contains('ghost');
 
     if (!isBlocked) {
