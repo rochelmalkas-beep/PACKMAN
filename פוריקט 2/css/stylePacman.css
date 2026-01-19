@@ -1,209 +1,144 @@
-/* --- הגדרות כלליות לעמוד (מונע חפיפה) --- */
+/* --- 1. Global Reset --- */
 body {
     background-color: black;
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    
-    /* הטריק שמסדר את העמוד: */
-    height: 100vh; /* תופס 100% גובה מסך */
+    padding: 0;
+    height: 100vh;
     display: flex;
-    flex-direction: column; /* מסדר: הדר למעלה, משחק למטה */
-    overflow: hidden; /* מונע גלילה אם לא חייבים */
+    flex-direction: column;
+    overflow: hidden; 
+    direction: ltr; 
 }
 
-/* --- הדר (Header) --- */
-.main-header {
-    /* חשוב: לא position: absolute כדי שיתפוס מקום אמיתי */
-    width: 100%;
-    height: 60px;
-    background-color: #111;
+.logo-small { 
+    height: 40px; /* Smaller logo so it stays inside the black bar */
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    box-sizing: border-box;
-    border-bottom: 2px solid #1919A6;
-    flex-shrink: 0; /* מונע מההדר להתכווץ */
 }
 
-/* לוגו וכפתור יציאה בהדר */
-.logo-small { display: flex; align-items: center; gap: 10px; color: #FFFF00; font-weight: bold; }
-.pacman-icon-small { width: 20px; height: 20px; background: #FFFF00; border-radius: 50%; }
-#logout-btn { background: none; border: none; color: #FFFF00; font-size: 24px; cursor: pointer; }
+.logo-small img {
+    height: 100%;
+    width: auto;
+}
 
-/* --- הקופסה החיצונית (עוטפת את המשחק) --- */
+#logout-btn { 
+    background: none; 
+    border: none; 
+    color: #F6C03D; 
+    font-size: 30px; 
+    cursor: pointer; 
+    display: flex;
+    align-items: center;
+}
+
+/* --- 3. Game Layout Container (The "Highest" position) --- */
 .container {
-    /* תופס את כל המקום שנשאר מתחת להדר */
     flex: 1; 
-    
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* ממקם את הלוח בדיוק באמצע המסך */
-    
+    justify-content: flex-start; 
     width: 100%;
-    background: radial-gradient(circle, #1a1a1a 0%, #000 90%); /* רקע מעגלי יפה */
+    /* 65px header + 10px breathing room = 75px */
+    padding-top: 75px; 
+    background: radial-gradient(circle, #1a1a1a 0%, #000 90%);
+    box-sizing: border-box;
+    position: relative;
 }
 
-/* כותרות מעל הלוח (ניקוד וחיים) */
+/* --- 4. Arcade HUD (Score/Lives) --- */
 .game-header {
     display: flex;
     justify-content: space-between;
-    width: 672px; /* רוחב זהה ללוח */
-    margin-bottom: 10px;
-    font-size: 24px;
+    width: 672px; 
+    margin-bottom: 0; 
+    padding: 5px 0; 
+    font-size: 24px; 
     font-weight: bold;
-    color: white;
+    color: #F6C03D; 
     font-family: 'Courier New', Courier, monospace;
+    border-bottom: 2px solid #1919A6;
 }
 
-/* --- לוח המשחק (הרשת) --- */
+/* --- 5. The Game Board --- */
 #game-board {
+    margin-top: 5px;
     display: flex;
-    flex-wrap: wrap; /* חובה! שובר שורות */
-    
-    /* חישוב גודל חדש: 24 משבצות * 28 פיקסלים */
+    flex-wrap: wrap;
     width: 672px;  
-    /* חישוב גובה: 19 משבצות * 28 פיקסלים */
     height: 532px; 
-    
-    border: 6px solid #1919A6; /* מסגרת כחולה עבה */
+    border: 4px solid #1919A6;
     background-color: black;
-    
-    /* אפקט זוהר כחול מסביב ללוח */
-    box-shadow: 0 0 20px #1919A6, inset 0 0 20px rgba(25, 25, 166, 0.2); 
+    box-shadow: 0 0 20px rgba(25, 25, 166, 0.4); 
 }
 
-/* --- עיצוב המשבצות (Squares) --- */
+/* --- 6. Square & Entity Design --- */
 .square {
-    /* גודל חדש - גדול יותר */
     width: 28px;
     height: 28px;
-    
-    box-sizing: border-box; /* מונע בעיות גודל */
+    box-sizing: border-box;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 70%; /* התמונה תתפוס 70% מהריבוע (נראה טוב לאוכל ולפקמן) */
+    background-size: 80%;
 }
 
-/* --- עדכון קירות --- */
-.wall {
-    /* במקום צבע כחול, אנחנו שמים את תמונת הקיר */
-    background-image: url('../images/wall.png'); 
-    background-size: cover; /* התמונה תתפרס על כל הריבוע */
-    background-repeat: no-repeat;
-    border: none; /* מורידים את המסגרת הישנה */
-}
+.wall { background-image: url('../images/wall.png'); background-size: cover; }
+.pacman { background-image: url('../images/pacmanRight.png'); background-size: contain; }
 
-/* --- עדכון פקמן --- */
-.pacman {
-    /* במקום עיגול צהוב, התמונה של פקמן */
-    background-image: url('../images/pacmanRight.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-color: transparent; /* רקע שקוף */
-    border-radius: 0; /* ביטול העיגול של ה-CSS כי התמונה כבר עגולה */
-}
-
-/* --- הכנת מחלקות לרוחות (נשתמש בהן בהמשך ב-JS) --- */
-/* --- הכנת מחלקות לרוחות --- */
-
-/* הגדרות כלליות לכל רוח */
-.ghost {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain; 
-    border-radius: 0; 
-    z-index: 1;
-}
-
-/* הגדרת תמונה לכל רוח בנפרד - עם הנתיב המתוקן! */
-
-/* בלינקי - האדום */
-.blinky {
-    background-image: url('../images/redGhost.png');
-}
-
-/* פינקי - הורוד */
-.pinky {
-    background-image: url('../images/pinkGhost.png');
-}
-
-/* אינקי - הכחול */
-.inky {
-    background-image: url('../images/blueGhost.png');
-}
-
-/* קלייד - הכתום */
-.clyde {
-    background-image: url('../images/orangeGhost.png');
-}
-/* --- כותרת תחתונה --- */
-.game-footer {
-    margin-top: 15px;
-    color: #FFFF00;
-    font-size: 18px;
-    font-family: monospace;
-    animation: blink 1s infinite; /* אפקט הבהוב */
-}
 .pac-dot {
-  background-color: white;
-  border-radius: 50%;
-  
-  /* שינוי גודל: הגדלנו את המסגרת מ-7 ל-10 */
-  /* ככל שהמספר הזה יותר גדול -> הנקודה הלבנה תהיה יותר קטנה */
-  border: 11px solid black; 
-  
-  box-sizing: border-box;
+    background-color: white;
+    border-radius: 50%;
+    border: 11px solid black; 
+    box-sizing: border-box;
 }
-.ghost.pac-dot {
-    border: none; /* מבטל את המסגרת השחורה של האוכל */
-    background-color: transparent; /* מבטל את הרקע הלבן של האוכל */
-    border-radius: 0; /* מבטל את העיגול של האוכל */
-    /* מוודא שהרוח תופסת את כל המקום ורואים אותה טוב */
-    background-size: contain; 
+
+/* Reset for Ghosts sitting on Food */
+.square.ghost.pac-dot {
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
 }
-/* אנימציית הבהוב לטקסט */
+
+.ghost {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10;
+}
+
+.blinky { background-image: url('../images/redGhost.png'); }
+.pinky { background-image: url('../images/pinkGhost.png'); }
+.inky { background-image: url('../images/blueGhost.png'); }
+.clyde { background-image: url('../images/orangeGhost.png'); }
+
+/* --- 7. Footer & Animations --- */
+.game-footer {
+    margin-top: 10px;
+    color: #F6C03D;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    animation: blink 1s infinite;
+}
+
 @keyframes blink {
     0% { opacity: 1; }
     50% { opacity: 0; }
     100% { opacity: 1; }
 }
+
+/* --- 8. Modal --- */
 .game-over-modal {
-    display: none; /* מוסתר כברירת מחדל */
-    position: absolute;
+    position: fixed;
+    display: none;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* ממקם בדיוק באמצע */
-    
-    background-color: rgba(0, 0, 0, 0.9); /* רקע שחור חצי שקוף */
-    border: 4px solid #ff0000; /* מסגרת אדומה */
-    padding: 20px 40px;
-    text-align: center;
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
-    z-index: 100; /* שיהיה מעל הכל */
-    box-shadow: 0 0 20px red; /* זוהר אדום */
-}
-
-.game-over-modal h1 {
-    font-size: 40px;
-    margin: 0 0 20px 0;
-    color: red;
-}
-
-.game-over-modal button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 18px;
-    cursor: pointer;
-    font-family: inherit;
-    margin-top: 15px;
-}
-
-.game-over-modal button:hover {
-    background-color: darkred;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.95);
+    border: 4px solid #ff0000;
+    padding: 30px;
+    z-index: 2000;
+    min-width: 300px
 }
