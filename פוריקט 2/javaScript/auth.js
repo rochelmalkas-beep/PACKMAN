@@ -1,60 +1,52 @@
-
 function checkSecurity() {
     if (window.location.pathname.includes('login.html')) {
         return;
     }
-    const user = localStorage.getItem('currentUser');
+    // שינוי ל-sessionStorage: כך המידע יימחק בסגירת הדפדפן
+    const user = sessionStorage.getItem('currentUser');
     if (!user) {
-        window.location.replace('../html/login.html'); 
+        window.location.replace('../html/login.html');
     }
 };
 checkSecurity();
-// 2. פונקציות שקורות כשהדף נטען
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // א. הצגת שם המשתמש (אם האלמנט קיים בדף)
+function init() {
     displayUserName();
-
-    // ב. טיפול בכפתור התנתקות
     handleLogout();
-
-    // ג. מניעת חזרה אחורה בדפדפן (אופציונלי, לאבטחה מחמירה)
     preventBackNavigation();
-});
+}
+// קריאה לפונקציה ברגע שהדף מוכן
+document.addEventListener('DOMContentLoaded', initializePage);
 
-// --- פונקציות עזר ---
 
 function displayUserName() {
-    // מנסה למצוא את האלמנט של השם (השתמשתי ב-ID שיש לך ב-games.html)
-    // שימי לב: ב-HTML שלך כתוב id="user-name-display"
     const nameSpan = document.getElementById('user-name-display') || document.getElementById('player-name-display');
-    
-    const currentUserData = localStorage.getItem('currentUser');
+    // שינוי ל-sessionStorage
+    const currentUserData = sessionStorage.getItem('currentUser');
 
     if (nameSpan && currentUserData) {
         try {
             const userObj = JSON.parse(currentUserData);
-            // מציג את השם מתוך האובייקט או את המחרוזת עצמה
-            nameSpan.innerText = ' ' + (userObj.username || userObj.name || userObj) + ' '; 
+            nameSpan.innerText = ' ' + (userObj.username || userObj.name || userObj) + ' ';
         } catch (e) {
             nameSpan.innerText = ' ' + currentUserData + ' ';
         }
     }
 }
-
+function logout() {
+    // שינוי ל-sessionStorage
+    sessionStorage.removeItem('currentUser');
+    window.location.replace('../html/login.html');
+}
 function handleLogout() {
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', function() {
-            localStorage.removeItem('currentUser');
-            window.location.replace('../html/login.html');
-        });
+        logoutBtn.addEventListener('click', logout);
     }
 }
-
+function preventBack() {
+    window.history.pushState(null, null, window.location.href);
+}
 function preventBackNavigation() {
     window.history.pushState(null, null, window.location.href);
-    window.onpopstate = function () {
-        window.history.pushState(null, null, window.location.href);
-    };
+    window.onpopstate = preventBack();
 }
