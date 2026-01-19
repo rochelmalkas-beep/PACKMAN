@@ -1,38 +1,50 @@
 /**
- * SECURITY GUARD: Unified Check
+ * THE ULTIMATE CACHE-BREAKER SECURITY
  */
-function enforceSecurity() {
-    // 1. Get the page type from the body tag (more reliable than URL)
-    const pageType = document.body.getAttribute('data-page-type');
-    const user = localStorage.getItem('currentUser');
+function syncUserState() {
+    const userJSON = localStorage.getItem('currentUser');
+    const nameDisplay = document.getElementById('user-name-display');
+    const path = window.location.pathname.toLowerCase();
+    
+    // 1. PATH PROTECTION: Identify if we are on the entry/login pages
+    const isPublicPage = path.includes('login.html') || path.includes('main.html') || path.endsWith('/');
 
-    // SCENARIO: LANDED ON LOGIN BUT USER STILL EXISTS (BACK BUTTON CASE)
-    if (pageType === 'public' && user) {
-        console.warn("Security: Session detected on public page. Clearing.");
-        localStorage.removeItem('currentUser');
+    // 2. SECURITY CHECK: If on a game page but the "User" is gone (Back Button case)
+    if (!isPublicPage && !userJSON) {
+        console.warn("Security: Cached session detected with no user. Redirecting...");
+        window.location.replace('login.html'); // Force move to login
+        return;
     }
 
-    // SCENARIO: ON GAME PAGE BUT NO USER
-    if (pageType === 'private' && !user) {
-        console.error("Security: Access Denied. Redirecting...");
-        window.location.href = 'login.html';
+    // 3. NAME SYNC: If we have a name on screen, ensure it matches the CURRENT storage
+    if (nameDisplay) {
+        if (userJSON) {
+            const userData = JSON.parse(userJSON);
+            // Overwrite whatever was there (prevents seeing the old name)
+            nameDisplay.textContent = userData.username; 
+        } else {
+            // If no user exists, clear the name immediately
+            nameDisplay.textContent = ""; 
+        }
     }
 }
 
-// CRITICAL: Run every time the page is shown (even from back button cache)
-window.addEventListener('pageshow', enforceSecurity);
+// CRITICAL: Listen to 'pageshow' to catch the browser when it "wakes up" from a Back-Button-Click
+window.addEventListener('pageshow', (event) => {
+    // Force a full clean-up every time the page appears
+    syncUserState();
+});
 
-// SECONDARY: Run on normal load
+// Setup UI elements on Load
 document.addEventListener('DOMContentLoaded', () => {
-    enforceSecurity();
+    syncUserState();
 
-    // Setup Logout Button
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.onclick = () => {
             if (confirm("האם אתה בטוח שברצונך להתנתק?")) {
                 localStorage.removeItem('currentUser');
-                window.location.href = 'login.html';
+                window.location.replace('login.html');
             }
         };
     }

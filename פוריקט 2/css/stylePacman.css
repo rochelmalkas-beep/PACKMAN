@@ -35,14 +35,15 @@ body {
 
 /* --- 3. Game Layout Container (The "Highest" position) --- */
 .container {
-    flex: 1; 
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; 
+    /* Changed to center to keep the board stable in the middle of the screen */
+    justify-content: center; 
     width: 100%;
-    /* 65px header + 10px breathing room = 75px */
-    padding-top: 75px; 
+    /* Keep the padding to prevent touching the header */
+    padding-top: 80px; 
     background: radial-gradient(circle, #1a1a1a 0%, #000 90%);
     box-sizing: border-box;
     position: relative;
@@ -115,13 +116,20 @@ body {
 
 /* --- 7. Footer & Animations --- */
 .game-footer {
-    margin-top: 10px;
+    /* Giving this a FIXED height prevents the board from moving 
+       when the "Ready" text disappears */
+    height: 40px; 
+    margin-top: 15px;
     color: #F6C03D;
-    font-size: 20px;
+    font-size: 22px;
     font-family: 'Courier New', Courier, monospace;
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     animation: blink 1s infinite;
-}
+  }
+
 
 @keyframes blink {
     0% { opacity: 1; }
