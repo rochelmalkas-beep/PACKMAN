@@ -21,41 +21,43 @@
             &#10140;
         </button>
     </header>
-    <div class="container game-selection-container">
-        <h1>שלום <span id="user-name-display" class="highlight-text">שחקן</span>!</h1>
-        <h2>במה נשחק?</h2>
+<div class="container game-selection-container">
+    <h1>שלום <span id="user-name-display" class="highlight-text">שחקן</span>!</h1>
+    <h2>במה נשחק?</h2>
 
-        <div class="games-grid">
+    <div class="carousel-container">
+        <button id="prevBtn" class="nav-btn">&#10094;</button>
+        
+        <div class="carousel-viewport">
+            <div class="games-grid" id="gamesGrid">
+                <a href="../html/construction.html" class="game-card">
+                    <video class="card-video" loop muted playsinline>
+                        <source src="../media/pacman1.mp4" type="video/mp4">
+                    </video>
+                    <h3>Pacman Maze</h3>
+                </a>
 
-            <a href="../html/construction.html" class="game-card">
-                <video class="card-video" >
-                    <source src="../media/pacman1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <h3>Pacman Maze</h3>
-            </a>
+                <a href="../html/pacmanGame.html" class="game-card">
+                    <video class="card-video" loop muted playsinline>
+                        <source src="../media/pacman.mp4" type="video/mp4">
+                    </video>
+                    <h3>PAC-MAN</h3>
+                </a>
 
-            <a href="../html/pacmanGame.html" class="game-card" style="border-color: #FFFF00; transform: scale(1.1);">
-                <video class="card-video" >
-                    <source src="../media/pacman.mp4" type="video/mp4">
-                </video>
-                <h3>PAC-MAN</h3>
-            </a>
-
-            <a href="../html/construction.html" class="game-card">
-                <video class="card-video" >
-                    <source src="../media/pacman3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <h3>COMING SOON</h3>
-            </a>
-
+                <a href="../html/construction.html" class="game-card">
+                    <video class="card-video" loop muted playsinline>
+                        <source src="../media/pacman3.mp4" type="video/mp4">
+                    </video>
+                    <h3>COMING SOON</h3>
+                </a>
+            </div>
         </div>
+
+        <button id="nextBtn" class="nav-btn">&#10095;</button>
     </div>
-
-    <script src="../javaScript/games.js"></script>
+</div>
     <script src="../javaScript/utils.js"></script>
-
+    <script src="../javaScript/games.js"></script>
 </body>
 
 </html>
