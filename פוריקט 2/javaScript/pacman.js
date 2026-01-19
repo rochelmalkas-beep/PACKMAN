@@ -1,16 +1,16 @@
-const width = 24; // רוחב הלוח
-const height = 19; //גובה
-let squares = []; // מחזיק את הריבועים
+const width = 24; 
+const height = 19; 
+let squares = []; 
 let pacmanCurrentIndex = 0;
-let score = 0; //ניקוד
-let timerId = NaN; //זמן
-let currentDirection = null; //כיוון נוכחי
-let lives = 3; // חיים
+let score = 0; 
+let timerId = NaN; 
+let currentDirection = null;
+let lives = 3;
 const livesDisplay = document.getElementById('lives-val');
 const gameOverModal = document.getElementById('game-over-modal');
 const finalScoreSpan = document.getElementById('final-score');
-const scoreDisplay = document.getElementById('score-val'); //תצוגת ניקוד
-let gameStarted = false; //האם המשחק התחיל
+const scoreDisplay = document.getElementById('score-val'); 
+let gameStarted = false; 
 const grid = document.querySelector('#game-board');
 const startMessage = document.getElementById('start-message');
 const gameBoard = [
@@ -57,19 +57,19 @@ createBoard();
 
 class Ghost {
     constructor(className, startIndex, speed) {
-        this.className = className; // השם (blinky, pinky...)
-        this.startIndex = startIndex; // איפה היא מתחילה
-        this.speed = speed; // מהירות
-        this.currentIndex = startIndex; // איפה היא כרגע
-        this.timerId = NaN; // השעון הפרטי שלה
-        this.direction = 1; // 1 = התחלה ימינה (ברירת מחדל)
+        this.className = className; 
+        this.startIndex = startIndex;
+        this.speed = speed;
+        this.currentIndex = startIndex;
+        this.timerId = NaN; 
+        this.direction = 1; 
     }
 }
 const ghosts = [
-    new Ghost('blinky', 226, 250,1), // היה 227 -> זז ל-226
-    new Ghost('pinky', 227, 400,1),  // היה 228 -> זז ל-227
-    new Ghost('inky', 228, 300,1),   // היה 229 -> זז ל-228
-    new Ghost('clyde', 229, 500,1)   // היה 230 (קיר!) -> זז ל-229
+    new Ghost('blinky', 226, 250,1),
+    new Ghost('pinky', 227, 400,1),
+    new Ghost('inky', 228, 300,1),  
+    new Ghost('clyde', 229, 500,1)  
 ];
 ghosts.forEach(ghost => {
     squares[ghost.currentIndex].classList.add(ghost.className);
@@ -85,9 +85,7 @@ if (!gameStarted && event.code === 'Space'&& lives > 0) {
         currentDirection = 'ArrowRight';
         timerId = setInterval(movePacman, 200);
 
-        // --- השיטה החדשה והנקייה ---
         ghosts.forEach(ghost => {
-            // אנחנו שולחים את moveGhost כפונקציה, ואת ghost כארגומנט שיכנס אליה
             ghost.timerId = setInterval(moveGhost, ghost.speed, ghost);
         });
     }
@@ -131,7 +129,6 @@ function movePacman(){
                 nextIndex = pacmanCurrentIndex + width;
             }
             break;
-    
         }
     if (squares[nextIndex].classList.contains('wall'))
         return;
@@ -159,93 +156,65 @@ function getRotation (direction){
     return 'rotate(0deg)';
 }
 function moveGhost(ghost) {
-    // הגדרת אפשרויות התנועה
     const directions = [-1, +1, width, -width];
     
-    // חישוב הכיוון המיועד
-    // שימי לב: אנחנו משתמשים ב-ghost.direction שנשמר בזיכרון של הרוח
     let direction = ghost.direction;
 
-    // בדיקה: האם אפשר להמשיך בכיוון הנוכחי?
-    // התנאי: אין קיר ואין רוח אחרת במשבצת הבאה
     const isBlocked = squares[ghost.currentIndex + direction].classList.contains('wall') ||
                       squares[ghost.currentIndex + direction].classList.contains('ghost');
 
-    if (!isBlocked) {
-        // --- הדרך פנויה: זזים ---
-        
-        // 1. הסרה מהמקום הישן
+    if (!isBlocked) {        
         squares[ghost.currentIndex].classList.remove(ghost.className);
         squares[ghost.currentIndex].classList.remove('ghost');
         
-        // 2. עדכון המיקום בזיכרון
         ghost.currentIndex += direction;
         
-        // 3. ציור במקום החדש
         squares[ghost.currentIndex].classList.add(ghost.className);
         squares[ghost.currentIndex].classList.add('ghost');
         checkForGameOver();
         
     } else {
-        // --- הדרך חסומה: מחליפים כיוון ---
-        // לא זזים בסיבוב הזה, רק מעדכנים את הכיוון לפעם הבאה
         ghost.direction = directions[Math.floor(Math.random() * directions.length)];
     }
 }
 function checkForGameOver() {
     if (squares[pacmanCurrentIndex].classList.contains('ghost')) {
         squares[pacmanCurrentIndex].classList.remove('pacman');
-        // 1. עצירת כל השעונים מיד
         clearInterval(timerId);
         ghosts.forEach(ghost => clearInterval(ghost.timerId));
         
-        // 2. הורדת חיים
         lives--;
         livesDisplay.innerHTML = lives;
 
-        // 3. בדיקה: האם נגמר המשחק?
         if (lives === 0) {
-            // --- GAME OVER אמיתי ---
             gameStarted = false;
-            // הצגת החלון המעוצב
             finalScoreSpan.innerHTML = score;
             gameOverModal.style.display = 'block'; 
             
         } else {
-            // --- איבוד חיים בלבד (Reset) ---
             gameStarted = false;
-            startMessage.style.display = 'block'; // מראה שוב את "לחץ רווח"
+            startMessage.style.display = 'block'; 
             startMessage.innerHTML = "OUCH! Press SPACE to continue";
             
-            // החזרת השחקנים למקום
             resetCharacters();
         }
     }
 }
 function resetCharacters() {
-    // 1. מחיקת פקמן מהמיקום הנוכחי
     squares[pacmanCurrentIndex].classList.remove('pacman');
     squares[pacmanCurrentIndex].style.transform = 'rotate(0deg)';
     
-    // 2. החזרת פקמן להתחלה
     pacmanCurrentIndex = pacmanStartIndex;
     squares[pacmanCurrentIndex].classList.add('pacman');
-    currentDirection = null; // איפוס כיוון
+    currentDirection = null; 
 
-    // 3. איפוס רוחות
     ghosts.forEach(ghost => {
-        // מחיקה מהמיקום הנוכחי
         squares[ghost.currentIndex].classList.remove(ghost.className);
         squares[ghost.currentIndex].classList.remove('ghost');
-        
-        // עצירת הטיימר שלו (חשוב!)
-        clearInterval(ghost.timerId);
 
-        // החזרה לבית
+        clearInterval(ghost.timerId);
         ghost.currentIndex = ghost.startIndex;
-        ghost.direction = 1; // איפוס כיוון הרוח
-        
-        // ציור מחדש בבית
+        ghost.direction = 1; 
         squares[ghost.currentIndex].classList.add(ghost.className);
         squares[ghost.currentIndex].classList.add('ghost');
     });

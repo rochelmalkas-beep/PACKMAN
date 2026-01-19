@@ -1,20 +1,16 @@
-/* --- הגדרות כלליות לעמוד (מונע חפיפה) --- */
 body {
     background-color: black;
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     
-    /* הטריק שמסדר את העמוד: */
-    height: 100vh; /* תופס 100% גובה מסך */
+    height: 100vh; 
     display: flex;
-    flex-direction: column; /* מסדר: הדר למעלה, משחק למטה */
-    overflow: hidden; /* מונע גלילה אם לא חייבים */
+    flex-direction: column; 
+    overflow: hidden; 
 }
 
-/* --- הדר (Header) --- */
 .main-header {
-    /* חשוב: לא position: absolute כדי שיתפוס מקום אמיתי */
     width: 100%;
     height: 60px;
     background-color: #111;
@@ -24,33 +20,27 @@ body {
     padding: 0 20px;
     box-sizing: border-box;
     border-bottom: 2px solid #1919A6;
-    flex-shrink: 0; /* מונע מההדר להתכווץ */
+    flex-shrink: 0; 
 }
 
-/* לוגו וכפתור יציאה בהדר */
 .logo-small { display: flex; align-items: center; gap: 10px; color: #FFFF00; font-weight: bold; }
 .pacman-icon-small { width: 20px; height: 20px; background: #FFFF00; border-radius: 50%; }
 #logout-btn { background: none; border: none; color: #FFFF00; font-size: 24px; cursor: pointer; }
 
-/* --- הקופסה החיצונית (עוטפת את המשחק) --- */
 .container {
-    /* תופס את כל המקום שנשאר מתחת להדר */
     flex: 1; 
-    
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* ממקם את הלוח בדיוק באמצע המסך */
-    
+    justify-content: center; 
     width: 100%;
-    background: radial-gradient(circle, #1a1a1a 0%, #000 90%); /* רקע מעגלי יפה */
+    background: radial-gradient(circle, #1a1a1a 0%, #000 90%); 
 }
 
-/* כותרות מעל הלוח (ניקוד וחיים) */
 .game-header {
     display: flex;
     justify-content: space-between;
-    width: 672px; /* רוחב זהה ללוח */
+    width: 672px; 
     margin-bottom: 10px;
     font-size: 24px;
     font-weight: bold;
@@ -58,58 +48,39 @@ body {
     font-family: 'Courier New', Courier, monospace;
 }
 
-/* --- לוח המשחק (הרשת) --- */
 #game-board {
     display: flex;
-    flex-wrap: wrap; /* חובה! שובר שורות */
-    
-    /* חישוב גודל חדש: 24 משבצות * 28 פיקסלים */
+    flex-wrap: wrap; 
     width: 672px;  
-    /* חישוב גובה: 19 משבצות * 28 פיקסלים */
     height: 532px; 
-    
-    border: 6px solid #1919A6; /* מסגרת כחולה עבה */
+    border: 6px solid #1919A6; 
     background-color: black;
-    
-    /* אפקט זוהר כחול מסביב ללוח */
     box-shadow: 0 0 20px #1919A6, inset 0 0 20px rgba(25, 25, 166, 0.2); 
 }
 
-/* --- עיצוב המשבצות (Squares) --- */
 .square {
-    /* גודל חדש - גדול יותר */
     width: 28px;
     height: 28px;
-    
-    box-sizing: border-box; /* מונע בעיות גודל */
+    box-sizing: border-box; 
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 70%; /* התמונה תתפוס 70% מהריבוע (נראה טוב לאוכל ולפקמן) */
+    background-size: 70%; 
 }
 
-/* --- עדכון קירות --- */
 .wall {
-    /* במקום צבע כחול, אנחנו שמים את תמונת הקיר */
     background-image: url('../images/wall.png'); 
-    background-size: cover; /* התמונה תתפרס על כל הריבוע */
+    background-size: cover; 
     background-repeat: no-repeat;
-    border: none; /* מורידים את המסגרת הישנה */
-}
+    border: none; 
 
-/* --- עדכון פקמן --- */
 .pacman {
-    /* במקום עיגול צהוב, התמונה של פקמן */
     background-image: url('../images/pacmanRight.png');
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: transparent; /* רקע שקוף */
-    border-radius: 0; /* ביטול העיגול של ה-CSS כי התמונה כבר עגולה */
-}
+    background-color: transparent; 
+    border-radius: 0;
 
-/* --- הכנת מחלקות לרוחות (נשתמש בהן בהמשך ב-JS) --- */
-/* --- הכנת מחלקות לרוחות --- */
 
-/* הגדרות כלליות לכל רוח */
 .ghost {
     background-repeat: no-repeat;
     background-position: center;
@@ -118,74 +89,59 @@ body {
     z-index: 1;
 }
 
-/* הגדרת תמונה לכל רוח בנפרד - עם הנתיב המתוקן! */
-
-/* בלינקי - האדום */
 .blinky {
     background-image: url('../images/redGhost.png');
 }
 
-/* פינקי - הורוד */
 .pinky {
     background-image: url('../images/pinkGhost.png');
 }
 
-/* אינקי - הכחול */
 .inky {
     background-image: url('../images/blueGhost.png');
 }
 
-/* קלייד - הכתום */
 .clyde {
     background-image: url('../images/orangeGhost.png');
 }
-/* --- כותרת תחתונה --- */
 .game-footer {
     margin-top: 15px;
     color: #FFFF00;
     font-size: 18px;
     font-family: monospace;
-    animation: blink 1s infinite; /* אפקט הבהוב */
+    animation: blink 1s infinite; 
 }
 .pac-dot {
   background-color: white;
   border-radius: 50%;
-  
-  /* שינוי גודל: הגדלנו את המסגרת מ-7 ל-10 */
-  /* ככל שהמספר הזה יותר גדול -> הנקודה הלבנה תהיה יותר קטנה */
-  border: 11px solid black; 
-  
+    border: 11px solid black; 
   box-sizing: border-box;
 }
 .ghost.pac-dot {
-    border: none; /* מבטל את המסגרת השחורה של האוכל */
-    background-color: transparent; /* מבטל את הרקע הלבן של האוכל */
-    border-radius: 0; /* מבטל את העיגול של האוכל */
-    /* מוודא שהרוח תופסת את כל המקום ורואים אותה טוב */
+    border: none; 
+    background-color: transparent;
+    border-radius: 0; 
     background-size: contain; 
 }
-/* אנימציית הבהוב לטקסט */
 @keyframes blink {
     0% { opacity: 1; }
     50% { opacity: 0; }
     100% { opacity: 1; }
 }
 .game-over-modal {
-    display: none; /* מוסתר כברירת מחדל */
+    display: none; 
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* ממקם בדיוק באמצע */
-    
-    background-color: rgba(0, 0, 0, 0.9); /* רקע שחור חצי שקוף */
-    border: 4px solid #ff0000; /* מסגרת אדומה */
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9); 
+    border: 4px solid #ff0000; 
     padding: 20px 40px;
     text-align: center;
     color: white;
     font-family: 'Courier New', Courier, monospace;
-    z-index: 100; /* שיהיה מעל הכל */
-    box-shadow: 0 0 20px red; /* זוהר אדום */
-}
+    z-index: 100; 
+    box-shadow: 0 0 20px red; 
 
 .game-over-modal h1 {
     font-size: 40px;
