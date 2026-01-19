@@ -7,7 +7,7 @@ const registerForm = document.getElementById('register-form');
 const loginForm = document.getElementById('login-form');
 function showMessage(text, type) {
     messageBox.textContent = text;
-    messageBox.className = type; 
+    messageBox.className = type;
     messageBox.classList.remove('hidden');
     setTimeout(() => {
         messageBox.classList.add('hidden');
@@ -16,7 +16,7 @@ function showMessage(text, type) {
 
 //פונקצית שליפת משתמשים
 function getUsers() {
-    const usersJSON = localStorage.getItem('pacmanUsers'); 
+    const usersJSON = localStorage.getItem('pacmanUsers');
     return usersJSON ? JSON.parse(usersJSON) : [];
 }
 // מבטל ריענון של אתר כמו במצלמר וגם מציג את הההרשמה או את ההתחברות לפי הלינק שלחצו
@@ -26,13 +26,18 @@ showRegisterLink.addEventListener('click', (e) => {
     registerSection.classList.remove('hidden');
     messageBox.classList.add('hidden');
 });
+//  registerForm.addEventListener('submit', (e) => signInRe(e));
+
+// function signInRe(e){
+
+// }
 registerForm.addEventListener('submit', (e) => {
     e.preventDefault(); // מונע שליחת טופס רגילה ורענון הדף
-    
+
     // לוקח את הערכים מהשדות ומוחק רווחים מיותרים בהתחלה/סוף (trim)
     const usernameInput = document.getElementById('reg-username').value.trim();
     const passwordInput = document.getElementById('reg-password').value.trim();
-    
+
     const users = getUsers(); // מביא את רשימת המשתמשים הקיימת
     // בדיקת כפילות: האם יש כבר משתמש עם השם הזה?
     const userExists = users.some(user => user.username === usernameInput);
@@ -78,11 +83,10 @@ loginForm.addEventListener('submit', (e) => {
 
         setTimeout(() => {
             // כאן קורה המעבר! שימי לב שהשם game.html תואם לשם הקובץ שלך
-            window.location.href = 'games.html'; 
+            window.location.href = 'games.html';
         }, 1500); // מחכים 2 שניות (2000 מילי-שניות) כדי שיראו את ה-LOADING
     } else {
         // אם לא נמצא משתמש תואם:
         showMessage('שגיאה: שם משתמש או סיסמא לא נכונים', 'error');
     }
 });
-    

@@ -81,7 +81,7 @@ body {
     width: 350px;
     text-align: center;
     margin-top: 100px; /* Space to clear the 80px fixed header */
-    direction: rtl; /* Hebrew alignment for the form */
+    direction: ltr; /* Hebrew alignment for the form */
 }
 
 h2 {

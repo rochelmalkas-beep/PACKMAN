@@ -150,3 +150,25 @@ body {
     z-index: 2000;
     min-width: 300px
 }
+/* --- עיצוב מיוחד לניצחון --- */
+/* המחלקה הזו תתווסף לחלון רק כשננצח */
+.game-won-modal {
+    border-color: #00ff00 !important; /* מסגרת ירוקה זוהרת */
+    box-shadow: 0 0 30px #00ff00 !important; /* הילה ירוקה */
+}
+
+.game-won-modal h1 {
+    color: #00ff00 !important; /* טקסט כותרת ירוק */
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.game-won-modal button {
+    background-color: #00ff00 !important; /* כפתור ירוק */
+    color: black !important;
+    font-weight: bold;
+}
+
+.game-won-modal button:hover {
+    background-color: #00cc00 !important;
+    transform: scale(1.1);
+}
