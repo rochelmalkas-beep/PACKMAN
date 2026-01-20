@@ -85,8 +85,8 @@ body {
     background-size: 80%;
 }
 
-.wall { background-image: url('../images/wall.png'); background-size: cover; }
-.pacman { background-image: url('../images/pacmanRight.png'); background-size: contain; }
+.wall { background-image: url('../assets/images/wall.png'); background-size: cover; }
+.pacman { background-image: url('../assets/images/pacmanRight.png'); background-size: contain; }
 
 .pac-dot {
     background-color: white;
