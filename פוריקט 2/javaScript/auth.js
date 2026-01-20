@@ -3,7 +3,7 @@ function checkSecurity() {
     if (thisUser) {
         return JSON.parse(thisUser);
     }
-    window.location.replace('../html/login.html');
+    window.location.replace('../html/Account.html');
     return;
 }
 
@@ -16,7 +16,7 @@ function displayUserName(user) {
 
 function logout() {
     localStorage.removeItem('currentUser');
-    window.location.replace('../html/login.html');
+    window.location.replace('../html/Account.html');
 }
 
 function inIt() {
