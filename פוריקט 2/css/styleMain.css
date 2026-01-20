@@ -1,61 +1,55 @@
-/* --- 1. Global Reset & Background --- */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f0f0; 
-    
-    /* Light pattern background */
-    background-image: url('../assets/images/bg_ptn.png'); 
+    background-color: #f0f0f0;
+
+    background-image: url('../assets/images/bg_ptn.png');
     background-repeat: repeat;
     background-size: 400px;
     background-attachment: fixed;
-    
+
     display: flex;
-    flex-direction: column; /* Changed to column to allow Header at top, Container below */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    direction: ltr; 
+    direction: ltr;
 }
 
-/* --- 2. Thicker, Unified Header --- */
 .main-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 80px; /* Thicker header as requested */
-    background-color: #000; 
+    height: 80px;
+    background-color: #000;
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
     padding: 0 30px;
     box-sizing: border-box;
-    border-bottom: 3px solid #F6C03D; 
+    border-bottom: 3px solid #F6C03D;
     z-index: 1000;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-
-/* Logo on the LEFT */
 .logo-wrapper {
-    height: 55px; /* Scaled for 80px header */
+    height: 55px;
     display: flex;
     align-items: center;
 }
 
 .logo-wrapper img {
-    height: 100%; 
+    height: 100%;
     width: auto;
 }
 
-/* Logout on the RIGHT (Unified ID: logout-btn) */
 #logout-btn {
     background: none;
     border: none;
-    color: #F6C03D; 
-    font-size: 35px; /* Larger arrow */
+    color: #F6C03D;
+    font-size: 35px;
     cursor: pointer;
     transition: transform 0.2s, color 0.2s;
     display: flex;
@@ -65,71 +59,70 @@ body {
 }
 
 #logout-btn:hover {
-    color: #ff3333; /* Red hover for "Exit" feel */
+    color: #ff3333;
     transform: scale(1.2);
     text-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
 }
 
-/* --- 3. Login/Sign-in Box (The Container) --- */
 .container {
-    background-color: rgba(255, 255, 255, 0.95); 
+    background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(5px);
     padding: 40px;
     border-radius: 15px;
-    border: 4px solid #F6C03D; 
+    border: 4px solid #F6C03D;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     width: 350px;
     text-align: center;
-    margin-top: 100px; /* Space to clear the 80px fixed header */
-    direction: ltr; /* Hebrew alignment for the form */
-}
+    margin-top: 100px;
+    direction: ltr;
 
-h2 {
-    color: #333;
-    text-transform: uppercase;
-    margin-bottom: 25px;
-    border-bottom: 2px solid #F6C03D;
-    display: inline-block;
-    padding-bottom: 5px;
-}
+    h2 {
+        color: #333;
+        text-transform: uppercase;
+        margin-bottom: 25px;
+        border-bottom: 2px solid #F6C03D;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
 
-/* --- 4. Form Styling --- */
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    box-sizing: border-box;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
+    input {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
 
-input:focus {
-    border-color: #F6C03D; 
-    outline: none;
-}
+    input:focus {
+        border-color: #F6C03D;
+        outline: none;
+    }
 
-button[type="submit"] {
-    width: 100%;
-    padding: 14px;
-    margin-top: 15px;
-    background-color: #F6C03D; 
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 18px;
-    transition: background 0.3s, transform 0.1s;
-}
+    button[type="submit"] {
+        width: 100%;
+        padding: 14px;
+        margin-top: 15px;
+        background-color: #F6C03D;
+        color: #000;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 18px;
+        transition: background 0.3s, transform 0.1s;
+    }
 
-button[type="submit"]:hover {
-    background-color: #e5af2d;
-}
+    button[type="submit"]:hover {
+        background-color: #e5af2d;
+    }
 
-button[type="submit"]:active {
-    transform: scale(0.98);
-}
+    button[type="submit"]:active {
+        transform: scale(0.98);
+    }
 
-.hidden { display: none; }
+    .hidden {
+        display: none;
+    }
