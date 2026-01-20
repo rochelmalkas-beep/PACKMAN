@@ -207,7 +207,8 @@ function checkForGameOver() {
         clearInterval(timerId);
         ghosts.forEach(ghost => clearInterval(ghost.timerId));
         lives--;
-        playSound(gameSounds.lost);
+        if(lives) 
+            {playSound(gameSounds.lost);}
         livesDisplay.innerHTML = lives;
         if (lives === 0) {
             gameStarted = false;
