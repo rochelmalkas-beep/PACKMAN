@@ -1,4 +1,3 @@
-/* --- 1. Global Reset --- */
 body {
     background-color: black;
     color: white;
@@ -8,12 +7,12 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden; 
-    direction: ltr; 
+    overflow: hidden;
+    direction: ltr;
 }
 
-.logo-small { 
-    height: 40px; /* Smaller logo so it stays inside the black bar */
+.logo-small {
+    height: 40px;
     display: flex;
     align-items: center;
 }
@@ -23,59 +22,53 @@ body {
     width: auto;
 }
 
-#logout-btn { 
-    background: none; 
-    border: none; 
-    color: #F6C03D; 
-    font-size: 30px; 
-    cursor: pointer; 
+#logout-btn {
+    background: none;
+    border: none;
+    color: #F6C03D;
+    font-size: 30px;
+    cursor: pointer;
     display: flex;
     align-items: center;
 }
 
-/* --- 3. Game Layout Container (The "Highest" position) --- */
 .container {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Changed to center to keep the board stable in the middle of the screen */
-    justify-content: center; 
+    justify-content: center;
     width: 100%;
-    /* Keep the padding to prevent touching the header */
-    padding-top: 80px; 
+    padding-top: 80px;
     background: radial-gradient(circle, #1a1a1a 0%, #000 90%);
     box-sizing: border-box;
     position: relative;
 }
 
-/* --- 4. Arcade HUD (Score/Lives) --- */
 .game-header {
     display: flex;
     justify-content: space-between;
-    width: 672px; 
-    margin-bottom: 0; 
-    padding: 5px 0; 
-    font-size: 24px; 
+    width: 672px;
+    margin-bottom: 0;
+    padding: 5px 0;
+    font-size: 24px;
     font-weight: bold;
-    color: #F6C03D; 
+    color: #F6C03D;
     font-family: 'Courier New', Courier, monospace;
     border-bottom: 2px solid #1919A6;
 }
 
-/* --- 5. The Game Board --- */
 #game-board {
     margin-top: 5px;
     display: flex;
     flex-wrap: wrap;
-    width: 672px;  
-    height: 532px; 
+    width: 672px;
+    height: 532px;
     border: 4px solid #1919A6;
     background-color: black;
-    box-shadow: 0 0 20px rgba(25, 25, 166, 0.4); 
+    box-shadow: 0 0 20px rgba(25, 25, 166, 0.4);
 }
 
-/* --- 6. Square & Entity Design --- */
 .square {
     width: 28px;
     height: 28px;
@@ -85,17 +78,23 @@ body {
     background-size: 80%;
 }
 
-.wall { background-image: url('../images/wall.png'); background-size: cover; }
-.pacman { background-image: url('../images/pacmanRight.png'); background-size: contain; }
+.wall {
+    background-image: url('../assets/images/wall.png');
+    background-size: cover;
+}
+
+.pacman {
+    background-image: url('../assets/images/pacmanRight.png');
+    background-size: contain;
+}
 
 .pac-dot {
     background-color: white;
     border-radius: 50%;
-    border: 11px solid black; 
+    border: 11px solid black;
     box-sizing: border-box;
 }
 
-/* Reset for Ghosts sitting on Food */
 .square.ghost.pac-dot {
     border: none;
     background-color: transparent;
@@ -109,16 +108,24 @@ body {
     z-index: 10;
 }
 
-.blinky { background-image: url('../images/redGhost.png'); }
-.pinky { background-image: url('../images/pinkGhost.png'); }
-.inky { background-image: url('../images/blueGhost.png'); }
-.clyde { background-image: url('../images/orangeGhost.png'); }
+.blinky {
+    background-image: url('../assets/images/redGhost.png');
+}
 
-/* --- 7. Footer & Animations --- */
+.pinky {
+    background-image: url('../assets/images/pinkGhost.png');
+}
+
+.inky {
+    background-image: url('../assets/images/blueGhost.png');
+}
+
+.clyde {
+    background-image: url('../assets/images/orangeGhost.png');
+}
+
 .game-footer {
-    /* Giving this a FIXED height prevents the board from moving 
-       when the "Ready" text disappears */
-    height: 40px; 
+    height: 40px;
     margin-top: 15px;
     color: #F6C03D;
     font-size: 22px;
@@ -128,16 +135,23 @@ body {
     align-items: center;
     justify-content: center;
     animation: blink 1s infinite;
-  }
+}
 
 
 @keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
-/* --- 8. Modal --- */
 .game-over-modal {
     position: fixed;
     display: none;
@@ -150,20 +164,19 @@ body {
     z-index: 2000;
     min-width: 300px
 }
-/* --- עיצוב מיוחד לניצחון --- */
-/* המחלקה הזו תתווסף לחלון רק כשננצח */
+
 .game-won-modal {
-    border-color: #00ff00 !important; /* מסגרת ירוקה זוהרת */
-    box-shadow: 0 0 30px #00ff00 !important; /* הילה ירוקה */
+    border-color: #00ff00 !important;
+    box-shadow: 0 0 30px #00ff00 !important;
 }
 
 .game-won-modal h1 {
-    color: #00ff00 !important; /* טקסט כותרת ירוק */
+    color: #00ff00 !important;
     text-shadow: 0 0 10px #00ff00;
 }
 
 .game-won-modal button {
-    background-color: #00ff00 !important; /* כפתור ירוק */
+    background-color: #00ff00 !important;
     color: black !important;
     font-weight: bold;
 }

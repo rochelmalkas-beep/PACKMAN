@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'pacFont';
-    src: url('../fonts/pacFont.ttf') format('truetype');
+    src: url('../assets/fonts/pacFont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -16,7 +16,7 @@
     border: 4px solid #F6C03D;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     text-align: center;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 h1 {
@@ -25,6 +25,7 @@ h1 {
     margin-bottom: 10px;
     font-weight: lighter;
 }
+
 .highlight-text {
     color: #1919A6;
     font-weight: 800;
@@ -33,56 +34,49 @@ h1 {
 .carousel-container {
     position: relative;
     width: 100%;
-    max-width: 800px; /* Limits width so cards overlap nicely */
+    max-width: 800px;
     margin: 0 auto;
     height: 350px;
     display: flex;
     align-items: center;
     justify-content: center;
-    perspective: 1000px; /* Gives the 3D depth */
+    perspective: 1000px;
 }
 
-/* Hide the inputs completely */
 input[type=radio] {
     display: none;
 }
 
-/* --- The Grid --- */
 .cards-grid {
     position: relative;
     width: 100%;
     height: 100%;
 }
 
-/* --- Generic Card Styles --- */
 .game-card {
     position: absolute;
     width: 240px;
     height: 300px;
     left: 0;
     right: 0;
-    margin: auto; /* Centers absolute elements */
+    margin: auto;
     top: 20px;
-    
     background-color: #000;
     border: 3px solid #1919A6;
     border-radius: 12px;
     color: white;
-    
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
     box-sizing: border-box;
-    
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
-                opacity 0.5s ease, 
-                filter 0.5s ease;
-    
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.5s ease,
+        filter 0.5s ease;
     cursor: pointer;
     z-index: 0;
     opacity: 0.6;
-    filter: grayscale(100%) blur(1px); /* Blur side cards slightly */
+    filter: grayscale(100%) blur(1px);
 }
 
 .card-video {
@@ -92,7 +86,7 @@ input[type=radio] {
     border-radius: 6px;
     margin-bottom: 15px;
     background: black;
-    pointer-events: none; /* Prevents video from blocking clicks */
+    pointer-events: none;
 }
 
 h3 {
@@ -102,18 +96,18 @@ h3 {
     letter-spacing: 2px;
 }
 
-/* Link overlay to make the whole card clickable ONLY when active */
 .click-area {
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 20;
-    pointer-events: none; /* Disabled by default */
+    pointer-events: none;
+    /* Disabled by default */
 }
 
-/* --- THE LOGIC (Radio Hack) --- */
-
-/* 1. When Item-1 is Checked (Left Card is Active) */
-#item-1:checked ~ .cards-grid #card-1 {
+#item-1:checked~.cards-grid #card-1 {
     transform: translateX(0) scale(1.15);
     opacity: 1;
     filter: grayscale(0%) blur(0px);
@@ -121,13 +115,24 @@ h3 {
     border-color: #F6C03D;
     box-shadow: 0 0 25px rgba(246, 192, 61, 0.5);
 }
-#item-1:checked ~ .cards-grid #card-1 .click-area { pointer-events: auto; } /* Enable link */
 
-#item-1:checked ~ .cards-grid #card-2 { transform: translateX(60%) scale(0.85); z-index: 5; }
-#item-1:checked ~ .cards-grid #card-3 { transform: translateX(120%) scale(0.7); opacity: 0; z-index: 1; }
+#item-1:checked~.cards-grid #card-1 .click-area {
+    pointer-events: auto;
+}
 
-/* 2. When Item-2 is Checked (Middle Card is Active - DEFAULT) */
-#item-2:checked ~ .cards-grid #card-2 {
+/* Enable link */
+#item-1:checked~.cards-grid #card-2 {
+    transform: translateX(60%) scale(0.85);
+    z-index: 5;
+}
+
+#item-1:checked~.cards-grid #card-3 {
+    transform: translateX(120%) scale(0.7);
+    opacity: 0;
+    z-index: 1;
+}
+
+#item-2:checked~.cards-grid #card-2 {
     transform: translateX(0) scale(1.15);
     opacity: 1;
     filter: grayscale(0%) blur(0px);
@@ -135,13 +140,22 @@ h3 {
     border-color: #F6C03D;
     box-shadow: 0 0 25px rgba(246, 192, 61, 0.5);
 }
-#item-2:checked ~ .cards-grid #card-2 .click-area { pointer-events: auto; }
 
-#item-2:checked ~ .cards-grid #card-1 { transform: translateX(-60%) scale(0.85); z-index: 5; }
-#item-2:checked ~ .cards-grid #card-3 { transform: translateX(60%) scale(0.85); z-index: 5; }
+#item-2:checked~.cards-grid #card-2 .click-area {
+    pointer-events: auto;
+}
 
-/* 3. When Item-3 is Checked (Right Card is Active) */
-#item-3:checked ~ .cards-grid #card-3 {
+#item-2:checked~.cards-grid #card-1 {
+    transform: translateX(-60%) scale(0.85);
+    z-index: 5;
+}
+
+#item-2:checked~.cards-grid #card-3 {
+    transform: translateX(60%) scale(0.85);
+    z-index: 5;
+}
+
+#item-3:checked~.cards-grid #card-3 {
     transform: translateX(0) scale(1.15);
     opacity: 1;
     filter: grayscale(0%) blur(0px);
@@ -149,12 +163,22 @@ h3 {
     border-color: #F6C03D;
     box-shadow: 0 0 25px rgba(246, 192, 61, 0.5);
 }
-#item-3:checked ~ .cards-grid #card-3 .click-area { pointer-events: auto; }
 
-#item-3:checked ~ .cards-grid #card-2 { transform: translateX(-60%) scale(0.85); z-index: 5; }
-#item-3:checked ~ .cards-grid #card-1 { transform: translateX(-120%) scale(0.7); opacity: 0; z-index: 1; }
+#item-3:checked~.cards-grid #card-3 .click-area {
+    pointer-events: auto;
+}
 
-/* Hover effects for side cards */
+#item-3:checked~.cards-grid #card-2 {
+    transform: translateX(-60%) scale(0.85);
+    z-index: 5;
+}
+
+#item-3:checked~.cards-grid #card-1 {
+    transform: translateX(-120%) scale(0.7);
+    opacity: 0;
+    z-index: 1;
+}
+
 .game-card:hover {
     border-color: #F6C03D;
     opacity: 1;
