@@ -43,6 +43,7 @@ const ghosts = [
     new Ghost('inky', 228, 300, randomMovement),
     new Ghost('clyde', 229, 500, randomMovement)
 ];
+const gameSounds = new SoundData(); 
 
 function inIt () {
 createBoard();
@@ -137,6 +138,7 @@ function pacDotEaten() {
         score++;
         scoreDisplay.innerHTML = score;
         squares[pacmanCurrentIndex].classList.remove('pac-dot');
+        playSound(gameSounds.munch);
     }
     if (score === food) {
         gameWin();
@@ -147,7 +149,8 @@ function gameWin() {
     gameStarted = false;
     clearInterval(timerId);
     ghosts.forEach(ghost => clearInterval(ghost.timerId));
-    document.removeEventListener('keydown', movePacman);
+    document.removeEventListener('keydown', startGame);
+    playSound(gameSounds.win); 
     const modalTitle = document.querySelector('#game-over-modal h1');
     const modalBtn = document.querySelector('#game-over-modal button');
     modalTitle.innerHTML = "YOU WON!";
@@ -166,6 +169,7 @@ function checkForGameOver() {
         if (lives === 0) {
             gameStarted = false;
             finalScoreSpan.innerHTML = score;
+            playSound(gameSounds.death); 
             gameOverModal.style.display = 'block';
         } else {
             gameStarted = false;

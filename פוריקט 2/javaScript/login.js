@@ -1,111 +1,88 @@
-// --- הגדרת משתנים (אלמנטים מה-HTML) ---
 const loginSection = document.getElementById('login-section');
 const registerSection = document.getElementById('register-section');
 const showRegisterLink = document.getElementById('show-register');
-const showLoginLink = document.getElementById('show-login'); // ודאי שיש לך כפתור כזה ב-HTML לחזרה להתחברות
+const showLoginLink = document.getElementById('show-login');
 const messageBox = document.getElementById('message-box');
 const registerForm = document.getElementById('register-form');
 const loginForm = document.getElementById('login-form');
 
-// --- פונקציה להצגת הודעות ---
 function showMessage(text, type) {
     messageBox.textContent = text;
-    messageBox.className = type; // מוודא שהעיצוב (אדום/ירוק) מתעדכן
+    messageBox.className = type;
     messageBox.classList.remove('hidden');
-    
-    // הסתרת ההודעה אחרי שניה
     setTimeout(() => {
         messageBox.classList.add('hidden');
     }, 1000);
 }
 
-// --- פונקציה לשליפת כל המשתמשים מהזיכרון ---
 function getUsers() {
-    const usersJSON = sessionStorage.getItem('pacmanUsers');
+    const usersJSON = localStorage.getItem('pacmanUsers');
     return usersJSON ? JSON.parse(usersJSON) : [];
 }
 
-// --- מעבר בין מסך התחברות למסך הרשמה ---
-showRegisterLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    loginSection.classList.add('hidden');
-    registerSection.classList.remove('hidden');
-    messageBox.classList.add('hidden'); // מנקה הודעות ישנות אם היו
-});
-
-// (אופציונלי) אם יש לך כפתור "כבר יש לי משתמש" שרוצה לחזור להתחברות
-if (showLoginLink) {
-    showLoginLink.addEventListener('click', (e) => {
-        e.preventDefault();
+function switchView(viewName) {
+    if (messageBox) messageBox.classList.add('hidden');
+    if (viewName === 'register') {
+        loginSection.classList.add('hidden');
+        registerSection.classList.remove('hidden');
+    } else {
         registerSection.classList.add('hidden');
         loginSection.classList.remove('hidden');
-        messageBox.classList.add('hidden');
-    });
+    }
 }
 
-// --- לוגיקה של הרשמה (Register) ---
-registerForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // מונע רענון של הדף
+function handleAuthClick(e) {
+    e.preventDefault();
+        if (e.currentTarget.id === 'show-register') {
+        switchView('register');
+    } else {
+        switchView('login');
+    }
+}
 
+function handleRegister(e) {
+    e.preventDefault();
     const usernameInput = document.getElementById('reg-username').value.trim();
     const passwordInput = document.getElementById('reg-password').value.trim();
-
     const users = getUsers();
-
-    // 1. בדיקה אם המשתמש כבר קיים
-    const userExists = users.some(user => user.username === usernameInput);
-    if (userExists) {
-        showMessage('GAME OVER:Username is taken!', 'error');
+    if (users.some(user => user.username === usernameInput)) {
+        showMessage('GAME OVER: Username is taken!', 'error');
         return;
     }
-
-    // 2. יצירת משתמש חדש
-    const newUser = {
-        username: usernameInput,
-        password: passwordInput,
-        highScore: 0
-    };
-
-    // 3. שמירת המשתמש ברשימת המשתמשים הכללית
+    const newUser = new User(usernameInput, passwordInput);
     users.push(newUser);
-    sessionStorage.setItem('pacmanUsers', JSON.stringify(users));
-
-    // 4. *** התחברות אוטומטית ***
-    // שומרים את המשתמש החדש כ"משתמש מחובר" כדי שהמשחק יזהה אותו
-    sessionStorage.setItem('currentUser', JSON.stringify(newUser));
-
-    showMessage('LEVEL UP! You have registered successfully lets move on to the game.', 'success');
+    localStorage.setItem('pacmanUsers', JSON.stringify(users));
+    localStorage.setItem('currentUser', JSON.stringify(newUser));
+    showMessage('LEVEL UP! Registered successfully.', 'success');
     registerForm.reset();
-    // 5. מעבר לדף המשחק
-    setTimeout(() => {
-        window.location.href = 'games.html';
-    }, 1500);
-});
+    setTimeout(() => window.location.href = 'games.html', 1500);
+}
 
-// --- לוגיקה של התחברות (Login) ---
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // מונע רענון של הדף
-
+function handleLogin(e) {
+    e.preventDefault();
     const usernameInput = document.getElementById('login-username').value.trim();
     const passwordInput = document.getElementById('login-password').value.trim();
-    
-    const users = getUsers();
-
-    // חיפוש משתמש תואם
-    const validUser = users.find(user => user.username === usernameInput && user.password === passwordInput);
-
+    const validUser = getUsers().find(user => 
+        user.username === usernameInput && user.password === passwordInput
+    );
     if (validUser) {
         showMessage('LOADING...', 'success');
-        
-        // שמירת המשתמש המחובר
-        sessionStorage.setItem('currentUser', JSON.stringify(validUser));
+        localStorage.setItem('currentUser', JSON.stringify(validUser));
         loginForm.reset();
-
-        // מעבר לדף המשחק
-        setTimeout(() => {
-            window.location.href = 'games.html';
-        }, 1500);
+        setTimeout(() => window.location.href = 'games.html', 1500);
     } else {
         showMessage('Error: Incorrect username or password', 'error');
     }
-});
+}
+function inIt() {
+    if (showRegisterLink) showRegisterLink.addEventListener('click', handleAuthClick);
+    if (showLoginLink) showLoginLink.addEventListener('click', handleAuthClick);
+    if (registerForm) {
+        registerForm.addEventListener('submit', handleRegister);
+    }
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', inIt);

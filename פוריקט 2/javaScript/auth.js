@@ -1,52 +1,32 @@
 function checkSecurity() {
-    if (window.location.pathname.includes('login.html')) {
-        return;
+    const thisUser = localStorage.getItem('currentUser');
+    if (thisUser) {
+        return JSON.parse(thisUser);
     }
-    // שינוי ל-sessionStorage: כך המידע יימחק בסגירת הדפדפן
-    const user = sessionStorage.getItem('currentUser');
-    if (!user) {
-        window.location.replace('../html/login.html');
-    }
-};
-checkSecurity();
-function init() {
-    displayUserName();
-    handleLogout();
-    preventBackNavigation();
+    window.location.replace('../html/login.html');
+    return;
 }
-// קריאה לפונקציה ברגע שהדף מוכן
-document.addEventListener('DOMContentLoaded', initializePage);
 
+function displayUserName(user) {
+    const nameSpan = document.getElementById('user-name-display');
+    if (nameSpan && user) {
+        nameSpan.innerText = user.username;
+    }
+}
 
-function displayUserName() {
-    const nameSpan = document.getElementById('user-name-display') || document.getElementById('player-name-display');
-    // שינוי ל-sessionStorage
-    const currentUserData = sessionStorage.getItem('currentUser');
+function logout() {
+    localStorage.removeItem('currentUser');
+    window.location.replace('../html/login.html');
+}
 
-    if (nameSpan && currentUserData) {
-        try {
-            const userObj = JSON.parse(currentUserData);
-            nameSpan.innerText = ' ' + (userObj.username || userObj.name || userObj) + ' ';
-        } catch (e) {
-            nameSpan.innerText = ' ' + currentUserData + ' ';
+function inIt() {
+    const user = checkSecurity();
+    if (user) {
+        displayUserName(user);
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.onclick = logout;
         }
     }
 }
-function logout() {
-    // שינוי ל-sessionStorage
-    sessionStorage.removeItem('currentUser');
-    window.location.replace('../html/login.html');
-}
-function handleLogout() {
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', logout);
-    }
-}
-function preventBack() {
-    window.history.pushState(null, null, window.location.href);
-}
-function preventBackNavigation() {
-    window.history.pushState(null, null, window.location.href);
-    window.onpopstate = preventBack();
-}
+document.addEventListener('DOMContentLoaded', inIt);
