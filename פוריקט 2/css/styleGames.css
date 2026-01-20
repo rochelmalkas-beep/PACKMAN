@@ -1,150 +1,163 @@
 @font-face {
-    font-family: 'pacFont'; /* This is the name you will use in your CSS */
+    font-family: 'pacFont';
     src: url('../fonts/pacFont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
-/* --- 1. Main Container (Compact Version) --- */
+/* --- Main Layout --- */
 .game-selection-container {
-    /* Apply it to your game header or body */
     font-family: 'pacFont', 'Courier New', monospace;
-    width: 85%; /* Slightly narrower */
+    width: 90%;
     max-width: 900px;
-    margin-top: 100px; /* Reduced gap from header */
+    margin: 80px auto 0;
     background-color: rgba(255, 255, 255, 0.95);
-    padding: 20px; /* Less padding */
+    padding: 30px;
     border-radius: 20px;
     border: 4px solid #F6C03D;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    
-    /* PREVENTS PAGE SCROLLING */
     overflow: hidden; 
 }
+
 h1 {
     font-size: 36px;
     color: #333;
     margin-bottom: 10px;
-    font-weight:lighter;
+    font-weight: lighter;
 }
 .highlight-text {
     color: #1919A6;
     font-weight: 800;
 }
 
-/* --- 2. Carousel Wrapper --- */
+/* --- Carousel Wrapper --- */
 .carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Limits width so cards overlap nicely */
+    margin: 0 auto;
+    height: 350px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    perspective: 1000px; /* Gives the 3D depth */
+}
+
+/* Hide the inputs completely */
+input[type=radio] {
+    display: none;
+}
+
+/* --- The Grid --- */
+.cards-grid {
     position: relative;
-    margin-top: 10px; /* Tighter layout */
+    width: 100%;
+    height: 100%;
 }
 
-.carousel-viewport {
-    width: 100%; 
-    height: 380px; /* Reduced height to fit better */
-    overflow: hidden; 
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    perspective: 1000px; 
-}
-
-.games-grid {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center; 
-    margin: 0; 
-    padding: 0;
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Faster slide */
-    will-change: transform;
-}
-
-/* --- 3. Card Design (Smaller & Cleaner) --- */
+/* --- Generic Card Styles --- */
 .game-card {
-    /* SCALED DOWN SIZES */
-    width: 220px;  /* Previously 260px */
-    height: 280px; /* Previously 320px */
-    margin: 0 15px; /* Smaller gaps */
-    
-    flex-shrink: 0; 
-    padding: 10px;
-    box-sizing: border-box;
+    position: absolute;
+    width: 240px;
+    height: 300px;
+    left: 0;
+    right: 0;
+    margin: auto; /* Centers absolute elements */
+    top: 20px;
     
     background-color: #000;
     border: 3px solid #1919A6;
     border-radius: 12px;
     color: white;
-    text-decoration: none;
     
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
     
-    /* Default State (Side Cards) */
-    opacity: 0.6; /* Little more visible */
-    transform: scale(0.9); /* Default size */
-    filter: grayscale(100%);
-    transition: all 0.4s ease;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                opacity 0.5s ease, 
+                filter 0.5s ease;
+    
     cursor: pointer;
-}
-
-/* --- 4. The Active Middle Card (THE ONLY ONE THAT GROWS) --- */
-.game-card.active {
-    opacity: 1 !important;
-    filter: grayscale(0%) !important;
-    transform: scale(1.15); /* Grows 15% larger */
-    z-index: 100;
-    border-color: #F6C03D;
-    box-shadow: 0 0 30px rgba(246, 192, 61, 0.6);
-}
-
-/* --- 5. Hover Effects (Side Cards) --- */
-/* FIX: Side cards do NOT grow size, they just get color */
-.game-card:hover {
-    border-color: #F6C03D;
-    opacity: 1 !important;
-    filter: grayscale(0%) !important;
-    /* Removed 'transform: scale(...)' so they stay small */
-}
-
-/* Ensure Active card stays big on hover */
-.game-card.active:hover {
-    transform: scale(1.15); 
+    z-index: 0;
+    opacity: 0.6;
+    filter: grayscale(100%) blur(1px); /* Blur side cards slightly */
 }
 
 .card-video {
     width: 100%;
-    height: 120px; /* Adjusted for smaller card */
+    height: 140px;
     object-fit: cover;
     border-radius: 6px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     background: black;
-    pointer-events: none;
+    pointer-events: none; /* Prevents video from blocking clicks */
 }
 
-/* --- 6. Buttons --- */
-.nav-btn {
-    background-color: #F6C03D;
-    border: none;
-    font-size: 20px;
-    width: 40px; /* Smaller buttons */
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 500;
-    margin: 0 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s;
+h3 {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
-.nav-btn:hover { transform: scale(1.1); }
 
+/* Link overlay to make the whole card clickable ONLY when active */
+.click-area {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 20;
+    pointer-events: none; /* Disabled by default */
+}
+
+/* --- THE LOGIC (Radio Hack) --- */
+
+/* 1. When Item-1 is Checked (Left Card is Active) */
+#item-1:checked ~ .cards-grid #card-1 {
+    transform: translateX(0) scale(1.15);
+    opacity: 1;
+    filter: grayscale(0%) blur(0px);
+    z-index: 10;
+    border-color: #F6C03D;
+    box-shadow: 0 0 25px rgba(246, 192, 61, 0.5);
+}
+#item-1:checked ~ .cards-grid #card-1 .click-area { pointer-events: auto; } /* Enable link */
+
+#item-1:checked ~ .cards-grid #card-2 { transform: translateX(60%) scale(0.85); z-index: 5; }
+#item-1:checked ~ .cards-grid #card-3 { transform: translateX(120%) scale(0.7); opacity: 0; z-index: 1; }
+
+/* 2. When Item-2 is Checked (Middle Card is Active - DEFAULT) */
+#item-2:checked ~ .cards-grid #card-2 {
+    transform: translateX(0) scale(1.15);
+    opacity: 1;
+    filter: grayscale(0%) blur(0px);
+    z-index: 10;
+    border-color: #F6C03D;
+    box-shadow: 0 0 25px rgba(246, 192, 61, 0.5);
+}
+#item-2:checked ~ .cards-grid #card-2 .click-area { pointer-events: auto; }
+
+#item-2:checked ~ .cards-grid #card-1 { transform: translateX(-60%) scale(0.85); z-index: 5; }
+#item-2:checked ~ .cards-grid #card-3 { transform: translateX(60%) scale(0.85); z-index: 5; }
+
+/* 3. When Item-3 is Checked (Right Card is Active) */
+#item-3:checked ~ .cards-grid #card-3 {
+    transform: translateX(0) scale(1.15);
+    opacity: 1;
+    filter: grayscale(0%) blur(0px);
+    z-index: 10;
+    border-color: #F6C03D;
+    box-shadow: 0 0 25px rgba(246, 192, 61, 0.5);
+}
+#item-3:checked ~ .cards-grid #card-3 .click-area { pointer-events: auto; }
+
+#item-3:checked ~ .cards-grid #card-2 { transform: translateX(-60%) scale(0.85); z-index: 5; }
+#item-3:checked ~ .cards-grid #card-1 { transform: translateX(-120%) scale(0.7); opacity: 0; z-index: 1; }
+
+/* Hover effects for side cards */
+.game-card:hover {
+    border-color: #F6C03D;
+    opacity: 1;
+}
