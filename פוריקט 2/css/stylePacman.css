@@ -109,10 +109,10 @@ body {
     z-index: 10;
 }
 
-.blinky { background-image: url('../images/redGhost.png'); }
-.pinky { background-image: url('../images/pinkGhost.png'); }
-.inky { background-image: url('../images/blueGhost.png'); }
-.clyde { background-image: url('../images/orangeGhost.png'); }
+.blinky { background-image: url('../assets/images/redGhost.png'); }
+.pinky { background-image: url('../assets/images/pinkGhost.png'); }
+.inky { background-image: url('../assets/images/blueGhost.png'); }
+.clyde { background-image: url('../assets/images/orangeGhost.png'); }
 
 /* --- 7. Footer & Animations --- */
 .game-footer {
