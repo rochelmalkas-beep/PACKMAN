@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pac-Man - בחירת משחק</title>
     <link rel="stylesheet" href="../css/styleMain.css">
     <link rel="stylesheet" href="../css/styleGames.css">
-
 </head>
 
 <body data-page-type="private">
@@ -16,48 +14,47 @@
         <div class="logo-wrapper">
             <img src="../images/pacman_logo.png" alt="Pac-Man Logo">
         </div>
-
-        <button id="logout-btn" title="Log out and exit">
-            &#10140;
-        </button>
+        <button id="logout-btn" title="התנתק ויציאה">&#10140;</button>
     </header>
-<div class="container game-selection-container">
-    <h1>Wellcome<span id="user-name-display" class="highlight-text">player</span>!</h1>
-    <h2>What shall we play?</h2>
 
-    <div class="carousel-container">
-        <button id="prevBtn" class="nav-btn">&#10094;</button>
-        
-        <div class="carousel-viewport">
-            <div class="games-grid" id="gamesGrid">
-                <a href="../html/construction.html" class="game-card">
-                    <video class="card-video" loop muted playsinline>
+    <div class="container game-selection-container">
+        <h1>Welcome <span id="user-name-display" class="highlight-text">שחקן</span>!</h1>
+        <h2>What shall we play?</h2>
+
+        <div class="carousel-container">
+            <input type="radio" name="slider" id="item-1">
+            <input type="radio" name="slider" id="item-2" checked>
+            <input type="radio" name="slider" id="item-3">
+
+            <div class="cards-grid">
+                <label class="game-card" for="item-1" id="card-1">
+                    <a href="../html/construction.html" class="click-area"></a>
+                    <video class="card-video" autoplay muted loop playsinline>
                         <source src="../media/pacman1.mp4" type="video/mp4">
                     </video>
                     <h3>Pacman Maze</h3>
-                </a>
+                </label>
 
-                <a href="../html/pacmanGame.html" class="game-card">
-                    <video class="card-video" loop muted playsinline>
+                <label class="game-card" for="item-2" id="card-2">
+                    <a href="../html/pacmanGame.html" class="click-area"></a>
+                    <video class="card-video" autoplay muted loop playsinline>
                         <source src="../media/pacman.mp4" type="video/mp4">
                     </video>
                     <h3>PAC-MAN</h3>
-                </a>
+                </label>
 
-                <a href="../html/construction.html" class="game-card">
-                    <video class="card-video" loop muted playsinline>
+                <label class="game-card" for="item-3" id="card-3">
+                    <a href="../html/construction.html" class="click-area"></a>
+                    <video class="card-video" autoplay muted loop playsinline>
                         <source src="../media/pacman3.mp4" type="video/mp4">
                     </video>
                     <h3>COMING SOON</h3>
-                </a>
+                </label>
             </div>
         </div>
-
-        <button id="nextBtn" class="nav-btn">&#10095;</button>
     </div>
-</div>
-<script src="../javaScript/auth.js"></script>
-    <script src="../javaScript/games.js"></script>
-</body>
 
+    <script src="../javaScript/auth.js"></script>
+    
+</body>
 </html>
