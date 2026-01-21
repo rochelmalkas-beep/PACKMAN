@@ -55,7 +55,7 @@ function handleRegister(e) {
     localStorage.setItem('currentUser', JSON.stringify(newUser));
     showMessage('LEVEL UP! Registered successfully.', 'success');
     registerForm.reset();
-    setTimeout(() => window.location.href = 'games.html', 1500);
+    setTimeout(() => window.location.href = 'html/games.html', 1500);
 }
 
 function handleLogin(e) {
@@ -69,7 +69,7 @@ function handleLogin(e) {
         showMessage('LOADING...', 'success');
         localStorage.setItem('currentUser', JSON.stringify(validUser));
         AccountForm.reset();
-        setTimeout(() => window.location.href = 'games.html', 1500);
+        setTimeout(() => window.location.href ='html/games.html', 1500);
     } else {
         showMessage('Error: Incorrect username or password', 'error');
     }
