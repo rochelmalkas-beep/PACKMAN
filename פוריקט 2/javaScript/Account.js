@@ -35,7 +35,7 @@ function ensureDefaultUsersExist() {
     const users = getUsers();
     const defaultUsers = [
         new User('malka', '7714'),
-        new User('isca', '123'),
+        new User('iska', '123'),
         new User('tyh', '111')
     ];
 
@@ -91,7 +91,7 @@ function handleLogin(e) {
     if (validUser) {
         localStorage.setItem('currentUser', JSON.stringify(validUser));
         sessionStorage.setItem('isSessionActive', 'true');
-        window.location.href = 'html/games.html';
+        window.location.href = 'html/gamesLobby.html';
     } else {
         alert('Incorrect username or password');
     }

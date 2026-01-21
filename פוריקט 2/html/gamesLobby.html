@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game library</title>
+    <link rel="stylesheet" href="../css/styleMain.css">
+    <link rel="stylesheet" href="../css/styleGamesLobby.css">
+</head>
+
+<body data-page-type="private">
+
+    <header class="main-header">
+        <div class="logo-wrapper">
+            <img src="../assets/images/pacman_logo.png" alt="Pac-Man Logo">
+        </div>
+        <button id="logout-btn">
+            <span class="logout-icon">&#10140;</span>
+            <span class="logout-text">log-out</span>
+        </button>
+    </header>
+
+    <div class="game-selection-container">
+        <h1>Welcome <span id="user-name-display" class="highlight-text">Player</span>!</h1>
+        <h2>What shall we play?</h2>
+
+        <div class="carousel-container">
+            <input type="radio" name="slider" id="item-1">
+            <input type="radio" name="slider" id="item-2" checked>
+            <input type="radio" name="slider" id="item-3">
+
+            <div class="cards-grid">
+                <label class="game-card" for="item-1" id="card-1">
+                    <a href="../html/construction.html" class="click-area"></a>
+                    <video class="card-video" autoplay muted loop playsinline>
+                        <source src="../assets/media/pacman1.mp4" type="video/mp4">
+                    </video>
+                    <h3>Pacman Maze</h3>
+                </label>
+
+                <label class="game-card" for="item-2" id="card-2">
+                    <a href="../html/pacmanGame.html" class="click-area"></a>
+                    <video class="card-video" autoplay muted loop playsinline>
+                        <source src="../assets/media/pacman.mp4" type="video/mp4">
+                    </video>
+                    <h3>PAC-MAN</h3>
+                </label>
+
+                <label class="game-card" for="item-3" id="card-3">
+                    <a href="../html/construction.html" class="click-area"></a>
+                    <video class="card-video" autoplay muted loop playsinline>
+                        <source src="../assets/media/pacman3.mp4" type="video/mp4">
+                    </video>
+                    <h3>COMING SOON</h3>
+                </label>
+            </div>
+        </div>
+    </div>
+    <script src="../javaScript/usersConstructer.js"></script>
+    <script src="../javaScript/security.js"></script>
+        <script src="../javaScript/gamesLobby.js"></script>
+
+</body>
+
+</html>

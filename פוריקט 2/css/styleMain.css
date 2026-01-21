@@ -1,4 +1,3 @@
-/* הגדרות כלליות לגוף הדף */
 body {
     margin: 0;
     padding: 0;
@@ -56,7 +55,7 @@ body {
     gap: 25px; 
 }
 
-.arcade-menu-btn {
+.Lobby-menu-btn {
     font-family: 'pacFont', 'Courier New', monospace;
     color: #F6C03D;
     text-decoration: none;
