@@ -104,7 +104,6 @@ h3 {
     height: 100%;
     z-index: 20;
     pointer-events: none;
-    /* Disabled by default */
 }
 
 #item-1:checked~.cards-grid #card-1 {
@@ -120,7 +119,6 @@ h3 {
     pointer-events: auto;
 }
 
-/* Enable link */
 #item-1:checked~.cards-grid #card-2 {
     transform: translateX(60%) scale(0.85);
     z-index: 5;
