@@ -1,4 +1,8 @@
-function checkSecurity() {
+
+window.addEventListener('beforeunload', function (e) {
+    // הפקודה הזו תמחק את המשתמש ברגע שהדף נסגר
+    localStorage.removeItem('currentUser');
+});function checkSecurity() {
     const thisUser = localStorage.getItem('currentUser');
     if (thisUser) {
         return JSON.parse(thisUser);
