@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,19 +8,28 @@
     <link rel="stylesheet" href="../css/styleConstruction.css">
 </head>
 <body>
-    <header class="main-header">
-    <div class="logo-wrapper">
-        <img src="../assets/images/pacman_logo.png" alt="Pac-Man Logo">
-    </div>
 
-    <button id="logout-btn" title="התנתק ויציאה">
-        &#10140;
-    </button>
-</header>
+    <header class="main-header">
+        <div class="logo-wrapper">
+            <img src="../assets/images/pacman_logo.png" alt="Pac-Man Logo">
+        </div>
+
+        <div class="header-controls">
+            <a href="games.html" class="arcade-menu-btn">ARCADE</a>
+            
+           <button id="logout-btn">
+            <span class="logout-icon">&#10140;</span>
+            <span class="logout-text">Disengagement</span>
+        </button>
+        </div>
+    </header>
+
     <div class="container">
         <h1>Under Construction</h1>
-        <p>We're working hard to bring you new and exciting games! Stay tuned for updates.</p>
+        <p>We're working hard to bring you new and exciting games! Stay tuned.</p>
+        <div class="construction-icon">🚧</div>
     </div>
+
     <script src="../javaScript/auth.js"></script>
     <script src="../javaScript/utils.js"></script>
     

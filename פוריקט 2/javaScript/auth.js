@@ -3,8 +3,7 @@ function checkSecurity() {
     if (thisUser) {
         return JSON.parse(thisUser);
     }
-    window.location.replace('../html/Account.html');
-    return;
+window.location.replace('../Account.html');    return;
 }
 
 function displayUserName(user) {
@@ -16,8 +15,7 @@ function displayUserName(user) {
 
 function logout() {
     localStorage.removeItem('currentUser');
-    window.location.replace('../html/Account.html');
-}
+window.location.replace('../Account.html');}
 
 function inIt() {
     const user = checkSecurity();
