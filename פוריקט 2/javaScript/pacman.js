@@ -4,29 +4,29 @@
 //שמות שיהיה חוקיות
 
 const gameBoard = [
-  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-  1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1,
-  1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1,
-  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-  1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1,
-  1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1,
-  1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1,
-  1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 4, 4, 4, 4, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1,
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 4, 4, 4, 4, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1,
-  1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1,
-  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
-  1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1,
-  1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1,
-  1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1,
-  1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1,
-  1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1,
-  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1,
+    1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1,
+    1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1,
+    1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 4, 4, 4, 4, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 4, 4, 4, 4, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1,
+    1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1,
+    1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1,
+    1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1,
+    1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 ];
 
 pacmanCurrentIndex = gameBoard.indexOf(2)
-const squares = []; 
+const squares = [];
 const width = 24;
 const pacmanStartIndex = pacmanCurrentIndex;
 let timerId = NaN;
@@ -39,10 +39,10 @@ const grid = document.querySelector('#game-board');
 const scoreDisplay = document.getElementById('score-val');
 const livesDisplay = document.getElementById('lives-val');
 const startMessage = document.getElementById('start-message');
-const gameOverModal = document.getElementById('game-over-modal');
+const gameModal = document.getElementById('game-modal');
 const finalScoreSpan = document.getElementById('final-score');
-const modalBtn = document.querySelector('#game-over-modal button');
-const modalTitle = document.querySelector('#game-over-modal h1');
+const modalBtn = document.querySelector('#game-modal button');
+const modalTitle = document.querySelector('#game-modal h1');
 const scoreContainer = document.getElementById('final-score');
 const ghosts = [
     new Ghost('blinky', 226, 250, chaseMovement),
@@ -98,14 +98,14 @@ function showInstructions() {
         scoreContainer.parentElement.style.display = 'none';
     }
     modalBtn.innerHTML = "GOT IT!";
-    gameOverModal.classList.add('orange-glow');
+    gameModal.classList.add('orange-glow');
     modalBtn.onclick = closeInstructionsModal;
-    gameOverModal.style.display = 'block';
+    gameModal.style.display = 'block';
 }
 
 function closeInstructionsModal() {
-    gameOverModal.style.display = 'none';
-    gameOverModal.classList.remove('orange-glow');
+    gameModal.style.display = 'none';
+    gameModal.classList.remove('orange-glow');
     const scoreContainer = document.getElementById('final-score');
     if (scoreContainer) {
         scoreContainer.parentElement.style.display = 'block';
@@ -116,7 +116,7 @@ function reloadGamePage() {
     window.location.reload();
 }
 function startGame(event) {
-    if (gameOverModal.style.display === 'block') {
+    if (gameModal.style.display === 'block') {
         return;
     }
     if (!gameStarted && event.code === 'Space' && lives > 0) {
@@ -136,7 +136,7 @@ function startGame(event) {
 
 
 function movePacman() {
-    const height=19;
+    const height = 19;
     if (!gameStarted || !currentDirection) return;
     let nextIndex = pacmanCurrentIndex;
     const Vjump = (height - 1) * width;
@@ -188,11 +188,11 @@ function pacDotEaten() {
         playSound(gameSounds.munch);
     }
     if (score === food) {
-        gameWin();
+        showsGameWin();
     }
 }
 
-function gameWin() {
+function showsGameWin() {
     gameStarted = false;
     clearInterval(timerId);
     ghosts.forEach(ghost => clearInterval(ghost.timerId));
@@ -200,10 +200,10 @@ function gameWin() {
     playSound(gameSounds.win);
     modalTitle.innerHTML = "YOU WON!";
     modalBtn.innerHTML = "PLAY AGAIN";
-    finalScoreSpan.innerHTML = score;
-    gameOverModal.classList.add('game-won-modal');
+    finalScoreSpan.innerHTML = "Score: " + score;
+    gameModal.classList.add('game-won-modal');
     modalBtn.onclick = reloadGamePage;
-    gameOverModal.style.display = 'block';
+    gameModal.style.display = 'block';
 }
 function checkForGameOver() {
     if (squares[pacmanCurrentIndex].classList.contains('ghost')) {
@@ -211,17 +211,17 @@ function checkForGameOver() {
         clearInterval(timerId);
         ghosts.forEach(ghost => clearInterval(ghost.timerId));
         lives--;
-        if(lives) 
-            {playSound(gameSounds.lost);}
+        if (lives) { playSound(gameSounds.lost); }
         livesDisplay.innerHTML = lives;
         if (lives === 0) {
             gameStarted = false;
             modalTitle.innerHTML = "GAME OVER!";
             modalBtn.innerHTML = "PLAY AGAIN";
-            finalScoreSpan.innerHTML = score;
+            finalScoreSpan.innerHTML = "Score: " + score;
             playSound(gameSounds.death);
+            gameModal.classList.add('game-over-modal');
             modalBtn.onclick = reloadGamePage;
-            gameOverModal.style.display = 'block';
+            gameModal.style.display = 'block';
         } else {
             gameStarted = false;
             startMessage.style.display = 'block';

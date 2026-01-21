@@ -1,10 +1,10 @@
-const AccountSection = document.getElementById('Account-section');
+const loginSection = document.getElementById('login-section');
 const registerSection = document.getElementById('register-section');
 const showRegisterLink = document.getElementById('show-register');
-const showLoginLink = document.getElementById('show-Account');
+const showLoginLink = document.getElementById('show-login');
 const messageBox = document.getElementById('message-box');
 const registerForm = document.getElementById('register-form');
-const AccountForm = document.getElementById('Account-form');
+const loginForm = document.getElementById('login-form');
 
 function showMessage(text, type) {
     messageBox.textContent = text;
@@ -23,20 +23,43 @@ function getUsers() {
 function switchView(viewName) {
     if (messageBox) messageBox.classList.add('hidden');
     if (viewName === 'register') {
-        AccountSection.classList.add('hidden');
+        loginSection.classList.add('hidden');
         registerSection.classList.remove('hidden');
     } else {
         registerSection.classList.add('hidden');
-        AccountSection.classList.remove('hidden');
+        loginSection.classList.remove('hidden');
+    }
+}
+
+function ensureDefaultUsersExist() {
+    const users = getUsers();
+    const defaultUsers = [
+        new User('rochel', '057157'),
+        new User('isca', '123'),
+        new User('tyh', '111')
+    ];
+
+    let dataChanged = false;
+
+    defaultUsers.forEach(defaultUser => {
+        const exists = users.some(u => u.username === defaultUser.username);
+
+        if (!exists) {
+            users.push(defaultUser);
+            dataChanged = true;
+        }
+    });
+    if (dataChanged) {
+        localStorage.setItem('pacmanUsers', JSON.stringify(users));
     }
 }
 
 function handleAuthClick(e) {
     e.preventDefault();
-        if (e.currentTarget.id === 'show-register') {
+    if (e.currentTarget.id === 'show-register') {
         switchView('register');
     } else {
-        switchView('Account');
+        switchView('login');
     }
 }
 
@@ -60,28 +83,29 @@ function handleRegister(e) {
 
 function handleLogin(e) {
     e.preventDefault();
-    const usernameInput = document.getElementById('Account-username').value.trim();
-    const passwordInput = document.getElementById('Account-password').value.trim();
-    const validUser = getUsers().find(user => 
+    const usernameInput = document.getElementById('login-username').value.trim();
+    const passwordInput = document.getElementById('login-password').value.trim();
+    const validUser = getUsers().find(user =>
         user.username === usernameInput && user.password === passwordInput
     );
     if (validUser) {
         showMessage('LOADING...', 'success');
         localStorage.setItem('currentUser', JSON.stringify(validUser));
-        AccountForm.reset();
-        setTimeout(() => window.location.href ='html/games.html', 1500);
+        loginForm.reset();
+        setTimeout(() => window.location.href = 'html/games.html', 1500);
     } else {
         showMessage('Error: Incorrect username or password', 'error');
     }
 }
 function inIt() {
+    ensureDefaultUsersExist();
     if (showRegisterLink) showRegisterLink.addEventListener('click', handleAuthClick);
     if (showLoginLink) showLoginLink.addEventListener('click', handleAuthClick);
     if (registerForm) {
         registerForm.addEventListener('submit', handleRegister);
     }
-    if (AccountForm) {
-        AccountForm.addEventListener('submit', handleLogin);
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
     }
 }
 
