@@ -26,7 +26,8 @@ const gameBoard = [
 ];
 
 pacmanCurrentIndex = gameBoard.indexOf(2)
-const squares = [];
+const squares = []; 
+const width = 24;
 const pacmanStartIndex = pacmanCurrentIndex;
 let timerId = NaN;
 let food = 0;
@@ -135,6 +136,7 @@ function startGame(event) {
 
 
 function movePacman() {
+    const height=19;
     if (!gameStarted || !currentDirection) return;
     let nextIndex = pacmanCurrentIndex;
     const Vjump = (height - 1) * width;
