@@ -1,20 +1,24 @@
+/* הגדרות כלליות לגוף הדף */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f0f0;
-
     background-image: url('../assets/images/bg_ptn.png');
     background-repeat: repeat;
     background-size: 400px;
     background-attachment: fixed;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     direction: ltr;
+}
+
+@font-face {
+    font-family: 'pacFont';
+    src: url('../assets/fonts/pacFont.ttf') format('truetype');
 }
 
 .main-header {
@@ -25,7 +29,7 @@ body {
     height: 80px;
     background-color: #000;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; 
     align-items: center;
     padding: 0 30px;
     box-sizing: border-box;
@@ -45,23 +49,70 @@ body {
     width: auto;
 }
 
+.header-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px; 
+}
+
+.arcade-menu-btn {
+    font-family: 'pacFont', 'Courier New', monospace;
+    color: #F6C03D;
+    text-decoration: none;
+    font-size: 18px;
+    letter-spacing: 2px;
+    border: 2px solid #2e2ed1;
+    padding: 6px 15px;
+    border-radius: 4px;
+    text-shadow: 0 0 8px #F6C03D;
+    box-shadow: 0 0 12px #2e2ed1, inset 0 0 4px #2e2ed1;
+    animation: neonPulse 2s infinite ease-in-out;
+    white-space: nowrap;
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+@keyframes neonPulse {
+    0%, 100% {
+        box-shadow: 0 0 10px #2e2ed1, inset 0 0 4px #2e2ed1;
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 20px #2e2ed1, inset 0 0 8px #2e2ed1;
+        transform: scale(1.05);
+    }
+}
+
 #logout-btn {
     background: none;
     border: none;
     color: #F6C03D;
-    font-size: 35px;
     cursor: pointer;
-    transition: transform 0.2s, color 0.2s;
     display: flex;
+    flex-direction: column; 
     align-items: center;
     justify-content: center;
     padding: 0;
+    transition: all 0.2s;
 }
 
 #logout-btn:hover {
-    color: #ff3333;
-    transform: scale(1.2);
-    text-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
+    transform: scale(1.1);
+    color: #ff3333; 
+}
+
+.logout-icon {
+    font-size: 26px;
+    line-height: 1;
+}
+
+.logout-text {
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 4px;
+    white-space: nowrap;
 }
 
 .container {
@@ -73,56 +124,57 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     width: 350px;
     text-align: center;
-    margin-top: 100px;
+    margin-top: 100px; 
     direction: ltr;
+}
 
-    h2 {
-        color: #333;
-        text-transform: uppercase;
-        margin-bottom: 25px;
-        border-bottom: 2px solid #F6C03D;
-        display: inline-block;
-        padding-bottom: 5px;
-    }
+.container h2 {
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #F6C03D;
+    display: inline-block;
+    padding-bottom: 5px;
+}
 
-    input {
-        width: 100%;
-        padding: 12px;
-        margin: 10px 0;
-        border: 2px solid #ddd;
-        border-radius: 8px;
-        box-sizing: border-box;
-        font-size: 16px;
-        transition: border-color 0.3s;
-    }
+.container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
 
-    input:focus {
-        border-color: #F6C03D;
-        outline: none;
-    }
+.container input:focus {
+    border-color: #F6C03D;
+    outline: none;
+}
 
-    button[type="submit"] {
-        width: 100%;
-        padding: 14px;
-        margin-top: 15px;
-        background-color: #F6C03D;
-        color: #000;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 18px;
-        transition: background 0.3s, transform 0.1s;
-    }
+.container button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    background-color: #F6C03D;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    transition: background 0.3s, transform 0.1s;
+}
 
-    button[type="submit"]:hover {
-        background-color: #e5af2d;
-    }
+.container button[type="submit"]:hover {
+    background-color: #e5af2d;
+}
 
-    button[type="submit"]:active {
-        transform: scale(0.98);
-    }
+.container button[type="submit"]:active {
+    transform: scale(0.98);
+}
 
-    .hidden {
-        display: none;
-    }
+.hidden {
+    display: none;
+}
