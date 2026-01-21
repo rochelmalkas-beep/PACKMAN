@@ -1,34 +1,30 @@
-
-window.addEventListener('beforeunload', function (e) {
-    // הפקודה הזו תמחק את המשתמש ברגע שהדף נסגר
-    localStorage.removeItem('currentUser');
-});function checkSecurity() {
-    const thisUser = localStorage.getItem('currentUser');
-    if (thisUser) {
-        return JSON.parse(thisUser);
+function checkSecurity() {
+    if (!sessionStorage.getItem('isSessionActive')) {
+        localStorage.removeItem('currentUser');
     }
-window.location.replace('../Account.html');    return;
-}
-
-function displayUserName(user) {
-    const nameSpan = document.getElementById('user-name-display');
-    if (nameSpan && user) {
-        nameSpan.innerText = user.username;
+    const userJson = localStorage.getItem('currentUser');
+    if (window.location.pathname.includes('Account.html')) {
+        return null;
     }
+    if (!userJson) {
+        window.location.replace('../Account.html');
+        return null;
+    }
+    return JSON.parse(userJson);
 }
 
 function logout() {
     localStorage.removeItem('currentUser');
-window.location.replace('../Account.html');}
+    sessionStorage.removeItem('isSessionActive');
+    window.location.replace('../Account.html');
+}
 
-function inIt() {
+document.addEventListener('DOMContentLoaded', () => {
     const user = checkSecurity();
     if (user) {
-        displayUserName(user);
+        const nameSpan = document.getElementById('user-name-display');
+        if (nameSpan) nameSpan.innerText = user.username;
         const logoutBtn = document.getElementById('logout-btn');
-        if (logoutBtn) {
-            logoutBtn.onclick = logout;
-        }
+        if (logoutBtn) logoutBtn.onclick = logout;
     }
-}
-document.addEventListener('DOMContentLoaded', inIt);
+});

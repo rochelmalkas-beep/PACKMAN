@@ -57,7 +57,6 @@ function handleRegister(e) {
     registerForm.reset();
     setTimeout(() => window.location.href = 'html/games.html', 1500);
 }
-
 function handleLogin(e) {
     e.preventDefault();
     const usernameInput = document.getElementById('Account-username').value.trim();
@@ -65,15 +64,16 @@ function handleLogin(e) {
     const validUser = getUsers().find(user => 
         user.username === usernameInput && user.password === passwordInput
     );
+
     if (validUser) {
-        showMessage('LOADING...', 'success');
         localStorage.setItem('currentUser', JSON.stringify(validUser));
-        AccountForm.reset();
-        setTimeout(() => window.location.href ='html/games.html', 1500);
+        sessionStorage.setItem('isSessionActive', 'true');
+        window.location.href = 'html/games.html';
     } else {
-        showMessage('Error: Incorrect username or password', 'error');
+        alert('Incorrect username or password');
     }
 }
+
 function inIt() {
     if (showRegisterLink) showRegisterLink.addEventListener('click', handleAuthClick);
     if (showLoginLink) showLoginLink.addEventListener('click', handleAuthClick);
