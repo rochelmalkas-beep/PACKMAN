@@ -76,10 +76,12 @@ function handleRegister(e) {
     users.push(newUser);
     localStorage.setItem('pacmanUsers', JSON.stringify(users));
     localStorage.setItem('currentUser', JSON.stringify(newUser));
+    sessionStorage.setItem('isSessionActive', 'true');
     showMessage('LEVEL UP! Registered successfully.', 'success');
     registerForm.reset();
-    setTimeout(() => window.location.href = 'html/games.html', 1500);
+        setTimeout(() => window.location.href = 'html/gamesLobby.html', 1500);
 }
+
 function handleLogin(e) {
     e.preventDefault();
     const usernameInput = document.getElementById('login-username').value.trim();
