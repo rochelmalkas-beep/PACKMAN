@@ -99,7 +99,10 @@ function handleLogin(e) {
     if (validUser) {
         localStorage.setItem('currentUser', JSON.stringify(validUser));
         sessionStorage.setItem('isSessionActive', 'true');
-        window.location.href = 'html/gamesLobby.html';
+        showMessage('LOADING... Authenticating Player', 'success');
+          setTimeout(() => {
+            window.location.href = 'html/gamesLobby.html';
+        }, 1500);
     } else {
         showMessage('Incorrect username or password', 'error');
     }
