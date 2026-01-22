@@ -1,8 +1,3 @@
-//משהו עם אותו שם גיים
-//לבדוק את כל השמות של הפונקציות שזה מאוד ברור
-//סדר הפונקציות
-//שמות שיהיה חוקיות
-
 const gameBoard = [
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -24,7 +19,6 @@ const gameBoard = [
     1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 ];
-
 pacmanCurrentIndex = gameBoard.indexOf(2)
 const squares = [];
 const width = 24;
@@ -50,16 +44,17 @@ const ghosts = [
     new Ghost('inky', 228, 300, randomMovement),
     new Ghost('clyde', 229, 500, randomMovement)
 ];
+    const directions = [-1, +1, width, -width];
 const gameSounds = new SoundData();
 
 function inIt() {
     createBoard();
+    showInstructions();
     document.addEventListener('keydown', startGame);
     ghosts.forEach(ghost => {
         squares[ghost.currentIndex].classList.add(ghost.className);
         squares[ghost.currentIndex].classList.add('ghost');
     });
-    showInstructions();
 }
 function createBoard() {
     for (let i = 0; i < gameBoard.length; i++) {
@@ -67,7 +62,6 @@ function createBoard() {
         grid.appendChild(square);
         squares.push(square);
         square.classList.add('square');
-        square.dataset.index = i;
         if (gameBoard[i] === 0) {
             square.classList.add("pac-dot");
             food++;
@@ -81,9 +75,9 @@ function createBoard() {
         else if (gameBoard[i] === 3) {
             square.classList.add("ghost");
         }
-
     }
 }
+
 function showInstructions() {
     modalTitle.innerHTML = `
         HOW TO PLAY:<br>
@@ -103,6 +97,7 @@ function showInstructions() {
     gameModal.style.display = 'block';
 }
 
+
 function closeInstructionsModal() {
     gameModal.style.display = 'none';
     gameModal.classList.remove('orange-glow');
@@ -112,9 +107,6 @@ function closeInstructionsModal() {
     }
 }
 
-function reloadGamePage() {
-    window.location.reload();
-}
 function startGame(event) {
     if (gameModal.style.display === 'block') {
         return;
@@ -133,7 +125,6 @@ function startGame(event) {
         currentDirection = event.code;
     }
 }
-
 
 function movePacman() {
     const height = 19;
@@ -191,64 +182,26 @@ function pacDotEaten() {
         showsGameWin();
     }
 }
-
-function showsGameWin() {
-    gameStarted = false;
-    clearInterval(timerId);
-    ghosts.forEach(ghost => clearInterval(ghost.timerId));
-    document.removeEventListener('keydown', startGame);
-    playSound(gameSounds.win);
-    modalTitle.innerHTML = "YOU WON!";
-    modalBtn.innerHTML = "PLAY AGAIN";
-    finalScoreSpan.innerHTML = "Score: " + score;
-    gameModal.classList.add('game-won-modal');
-    modalBtn.onclick = reloadGamePage;
-    gameModal.style.display = 'block';
-}
-function checkForGameOver() {
-    if (squares[pacmanCurrentIndex].classList.contains('ghost')) {
-        squares[pacmanCurrentIndex].classList.remove('pacman');
-        clearInterval(timerId);
-        ghosts.forEach(ghost => clearInterval(ghost.timerId));
-        lives--;
-        if (lives) { playSound(gameSounds.lost); }
-        livesDisplay.innerHTML = lives;
-        if (lives === 0) {
-            gameStarted = false;
-            modalTitle.innerHTML = "GAME OVER!";
-            modalBtn.innerHTML = "PLAY AGAIN";
-            finalScoreSpan.innerHTML = "Score: " + score;
-            playSound(gameSounds.death);
-            gameModal.classList.add('game-over-modal');
-            modalBtn.onclick = reloadGamePage;
-            gameModal.style.display = 'block';
-        } else {
-            gameStarted = false;
-            startMessage.style.display = 'block';
-            startMessage.innerHTML = "OUCH! Press SPACE to continue";
-            resetCharacters();
-        }
+function moveGhost(ghost) {
+    const direction = ghost.movementLogic(ghost);
+    ghost.direction = direction;
+    const nextIndex = ghost.currentIndex + direction;
+    const isBlocked = !squares[nextIndex] ||
+        squares[nextIndex].classList.contains('wall') ||
+        squares[nextIndex].classList.contains('ghost');
+    if (isBlocked) {
+        ghost.direction = randomMovement(ghost);
+        return;
     }
-}
-function resetCharacters() {
-    squares[pacmanCurrentIndex].classList.remove('pacman');
-    squares[pacmanCurrentIndex].style.transform = 'rotate(0deg)';
-    pacmanCurrentIndex = pacmanStartIndex;
-    squares[pacmanCurrentIndex].classList.add('pacman');
-    currentDirection = null;
-    ghosts.forEach(ghost => {
-        squares[ghost.currentIndex].classList.remove(ghost.className);
-        squares[ghost.currentIndex].classList.remove('ghost');
-        clearInterval(ghost.timerId);
-        ghost.currentIndex = ghost.startIndex;
-        ghost.direction = 1;
-        squares[ghost.currentIndex].classList.add(ghost.className);
-        squares[ghost.currentIndex].classList.add('ghost');
-    });
+    squares[ghost.currentIndex].classList.remove(ghost.className);
+    squares[ghost.currentIndex].classList.remove('ghost');
+    ghost.currentIndex += direction;
+    squares[ghost.currentIndex].classList.add(ghost.className);
+    squares[ghost.currentIndex].classList.add('ghost');
+    checkForGameOver();
 }
 
 function randomMovement(ghost) {
-    const directions = [-1, +1, width, -width];
     let direction = ghost.direction;
     let nextIndex = ghost.currentIndex + direction;
     if (!squares[nextIndex] ||
@@ -258,8 +211,8 @@ function randomMovement(ghost) {
     }
     return direction;
 }
+
 function chaseMovement(ghost) {
-    const directions = [-1, +1, width, -width];
     const [pacmanX, pacmanY] = getCoordinates(pacmanCurrentIndex);
     let oppositeDirection = -ghost.direction;
     let bestDirection = null;
@@ -283,7 +236,6 @@ function chaseMovement(ghost) {
             bestDirection = dir;
         }
     });
-
     if (bestDirection !== null) {
         return bestDirection;
     }
@@ -291,6 +243,65 @@ function chaseMovement(ghost) {
         return oppositeDirection;
     }
     return randomMovement(ghost);
+}
+
+function checkForGameOver() {
+    if (squares[pacmanCurrentIndex].classList.contains('ghost')) {
+        squares[pacmanCurrentIndex].classList.remove('pacman');
+        clearInterval(timerId);
+        ghosts.forEach(ghost => clearInterval(ghost.timerId));
+        lives--;
+        livesDisplay.innerHTML = lives;
+        if (lives === 0) {
+            gameStarted = false;
+            playSound(gameSounds.death);
+            modalTitle.innerHTML = "GAME OVER!";
+            modalBtn.innerHTML = "PLAY AGAIN";
+            finalScoreSpan.innerHTML = "Score: " + score;
+            gameModal.classList.add('game-over-modal');
+            modalBtn.onclick = reloadGamePage;
+            gameModal.style.display = 'block';
+        } else {
+            gameStarted = false;
+            playSound(gameSounds.lost);
+            startMessage.style.display = 'block';
+            startMessage.innerHTML = "OUCH! Press SPACE to continue";
+            resetCharacters();
+        }
+    }
+}
+
+function showsGameWin() {
+    gameStarted = false;
+    clearInterval(timerId);
+    ghosts.forEach(ghost => clearInterval(ghost.timerId));
+    document.removeEventListener('keydown', startGame);
+    playSound(gameSounds.win);
+    modalTitle.innerHTML = "YOU WON!";
+    modalBtn.innerHTML = "PLAY AGAIN";
+    finalScoreSpan.innerHTML = "Score: " + score;
+    gameModal.classList.add('game-won-modal');
+    modalBtn.onclick = reloadGamePage;
+    gameModal.style.display = 'block';
+}
+
+function resetCharacters() {
+    squares[pacmanCurrentIndex].classList.remove('pacman');
+    squares[pacmanCurrentIndex].style.transform = 'rotate(0deg)';
+    pacmanCurrentIndex = pacmanStartIndex;
+    squares[pacmanCurrentIndex].classList.add('pacman');
+    currentDirection = null;
+    ghosts.forEach(ghost => resetGhost(ghost));
+}
+
+function resetGhost(ghost) {
+        squares[ghost.currentIndex].classList.remove(ghost.className);
+        squares[ghost.currentIndex].classList.remove('ghost');
+        clearInterval(ghost.timerId);
+        ghost.currentIndex = ghost.startIndex;
+        ghost.direction = 1;
+        squares[ghost.currentIndex].classList.add('ghost');
+        squares[ghost.currentIndex].classList.add(ghost.className);
 }
 
 function getRotation(direction) {
@@ -301,26 +312,12 @@ function getRotation(direction) {
     return 'rotate(0deg)';
 }
 
+function reloadGamePage() {
+    window.location.reload();
+}
+
 function getCoordinates(index) {
     return [index % width, Math.floor(index / width)];
 }
 
-function moveGhost(ghost) {
-    const direction = ghost.movementLogic(ghost);
-    ghost.direction = direction;
-    const nextIndex = ghost.currentIndex + direction;
-    const isBlocked = !squares[nextIndex] ||
-        squares[nextIndex].classList.contains('wall') ||
-        squares[nextIndex].classList.contains('ghost');
-    if (isBlocked) {
-        ghost.direction = randomMovement(ghost);
-        return;
-    }
-    squares[ghost.currentIndex].classList.remove(ghost.className);
-    squares[ghost.currentIndex].classList.remove('ghost');
-    ghost.currentIndex += direction;
-    squares[ghost.currentIndex].classList.add(ghost.className);
-    squares[ghost.currentIndex].classList.add('ghost');
-    checkForGameOver();
-}
 inIt();

@@ -6,29 +6,12 @@ const messageBox = document.getElementById('message-box');
 const registerForm = document.getElementById('register-form');
 const loginForm = document.getElementById('login-form');
 
-function showMessage(text, type) {
-    messageBox.textContent = text;
-    messageBox.className = type;
-    messageBox.classList.remove('hidden');
-    setTimeout(() => {
-        messageBox.classList.add('hidden');
-    }, 1000);
-}
-
-function getUsers() {
-    const usersJSON = localStorage.getItem('pacmanUsers');
-    return usersJSON ? JSON.parse(usersJSON) : [];
-}
-
-function switchView(viewName) {
-    if (messageBox) messageBox.classList.add('hidden');
-    if (viewName === 'register') {
-        loginSection.classList.add('hidden');
-        registerSection.classList.remove('hidden');
-    } else {
-        registerSection.classList.add('hidden');
-        loginSection.classList.remove('hidden');
-    }
+function initializeAccountPage() {
+    ensureDefaultUsersExist();
+    showRegisterLink.addEventListener('click', handleAuthClick);
+    showLoginLink.addEventListener('click', handleAuthClick);
+    registerForm.addEventListener('submit', handleRegister);
+    loginForm.addEventListener('submit', handleLogin);
 }
 
 function ensureDefaultUsersExist() {
@@ -36,22 +19,35 @@ function ensureDefaultUsersExist() {
     const defaultUsers = [
         new User('malka', '7714'),
         new User('iska', '123'),
-        new User('tyh', '111')
+        new User('aa', '11')
     ];
+    const dataChanged = ensureDefaultUsers(users, defaultUsers);
+    if (dataChanged) {
+        localStorage.setItem('pacmanUsers', JSON.stringify(users));
+    }
+}
 
+function getUsers() {
+    const usersJSON = localStorage.getItem('pacmanUsers');
+    return usersJSON ? JSON.parse(usersJSON) : [];
+}
+
+function ensureDefaultUsers(users, defaultUsers) {
     let dataChanged = false;
-
-    defaultUsers.forEach(defaultUser => {
-        const exists = users.some(u => u.username === defaultUser.username);
-
+    for (const defaultUser of defaultUsers) {
+        let exists = false;
+        for (const user of users) {
+            if (user.username === defaultUser.username) {
+                exists = true;
+                break;
+            }
+        }
         if (!exists) {
             users.push(defaultUser);
             dataChanged = true;
         }
-    });
-    if (dataChanged) {
-        localStorage.setItem('pacmanUsers', JSON.stringify(users));
     }
+    return dataChanged;
 }
 
 function handleAuthClick(e) {
@@ -60,6 +56,17 @@ function handleAuthClick(e) {
         switchView('register');
     } else {
         switchView('login');
+    }
+}
+
+function switchView(viewName) {
+  messageBox.classList.add('hidden');
+    if (viewName === 'register') {
+        loginSection.classList.add('hidden');
+        registerSection.classList.remove('hidden');
+    } else {
+        registerSection.classList.add('hidden');
+        loginSection.classList.remove('hidden');
     }
 }
 
@@ -79,7 +86,7 @@ function handleRegister(e) {
     sessionStorage.setItem('isSessionActive', 'true');
     showMessage('LEVEL UP! Registered successfully.', 'success');
     registerForm.reset();
-        setTimeout(() => window.location.href = 'html/gamesLobby.html', 1500);
+    setTimeout(() => window.location.href = 'html/gamesLobby.html', 1500);
 }
 
 function handleLogin(e) {
@@ -89,26 +96,25 @@ function handleLogin(e) {
     const validUser = getUsers().find(user =>
         user.username === usernameInput && user.password === passwordInput
     );
-
     if (validUser) {
         localStorage.setItem('currentUser', JSON.stringify(validUser));
         sessionStorage.setItem('isSessionActive', 'true');
         window.location.href = 'html/gamesLobby.html';
     } else {
-        alert('Incorrect username or password');
+        showMessage('Incorrect username or password', 'error');
     }
 }
 
-function inIt() {
-    ensureDefaultUsersExist();
-    if (showRegisterLink) showRegisterLink.addEventListener('click', handleAuthClick);
-    if (showLoginLink) showLoginLink.addEventListener('click', handleAuthClick);
-    if (registerForm) {
-        registerForm.addEventListener('submit', handleRegister);
-    }
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
-    }
+function showMessage(text, type) {
+    messageBox.textContent = text;
+    messageBox.className = type;
+    messageBox.classList.remove('hidden');
+    setTimeout(() => {
+        messageBox.classList.add('hidden');
+    }, 1000);
 }
 
-document.addEventListener('DOMContentLoaded', inIt);
+
+
+document.addEventListener('DOMContentLoaded', initializeAccountPage);
+

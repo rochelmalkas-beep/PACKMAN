@@ -2,13 +2,7 @@ function checkSecurity() {
     if (!sessionStorage.getItem('isSessionActive')) {
         localStorage.removeItem('currentUser');
     }
-
     const userJson = localStorage.getItem('currentUser');
-    
-    if (window.location.pathname.includes('Account.html')) {
-        return null;
-    }
-
     if (!userJson) {
         window.location.replace('../Account.html');
         return null;
@@ -21,4 +15,10 @@ function logout() {
     sessionStorage.removeItem('isSessionActive');
     window.location.replace('../Account.html');
 }
-checkSecurity();
+
+function initializeSecurityPage() {
+    checkSecurity();
+    const logoutBtn = document.getElementById('logout-btn');
+        logoutBtn.onclick = logout;
+}
+document.addEventListener('DOMContentLoaded', initializeSecurityPage);
