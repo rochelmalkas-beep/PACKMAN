@@ -56,4 +56,8 @@ Open Account.html directly in your web browser, or launch it using a local devel
 
 Start Playing:
 
+<<<<<<< HEAD
 Register a new player account or sign in to access the game lobby.
+=======
+Register a new player account or sign in to access the game lobby.
+>>>>>>> b5918db9797174e7237ebb473d4a44b6f738748b
